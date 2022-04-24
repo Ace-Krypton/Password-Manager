@@ -3,4 +3,4 @@ project(PasswordManager)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(PasswordManager main.cpp header.hpp)
+add_executable(PasswordManager main.cpp header.hpp PassSearch.cpp)
