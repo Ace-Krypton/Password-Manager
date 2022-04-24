@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
 #include "header.hpp"
 
 /**
@@ -45,6 +47,17 @@ auto AddPassword::add_password() -> void {
 
     char password[size];
 
+    srand(time(nullptr));
+    password[0] = lower_case_letters[rand() % lower_case_letters.length() + 1];
+    password[1] = capital_case_letters[rand() % capital_case_letters.length() + 1];
+    password[2] = special_case_letters[rand() % special_case_letters.length() + 1];
+    password[3] = numbers[rand() % numbers.length() + 1];
+
+    for (int i = 4; i < size; i++) {
+        password[i] = combined_characters_of_all[rand() % combined_characters_of_all.length() + 1];
+    }
+
+    std::cout << "Your generated password is: " << password << std::endl;
 }
 
 /**

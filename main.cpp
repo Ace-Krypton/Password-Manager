@@ -19,13 +19,14 @@ auto main() -> int {
                 break;
 
             case 1:  //Search for passwords
-                PassSearch::pass_search();  //Calling pass_search() method
+                PassSearch::pass_search();
                 break;
 
             case 2:  //Sort passwords
                 break;
 
             case 3:  //Add a password
+                AddPassword::generate_password();
                 break;
 
             case 4:  //Edit a password
@@ -35,7 +36,7 @@ auto main() -> int {
                 break;
 
             case 6:  //Add a category
-                AddCategory::add_category();  //Calling add_category method
+                AddCategory::add_category();
                 break;
 
             case 7:  //Remove a category
