@@ -6,11 +6,12 @@ auto main() -> int {
     std::string user_input_str;  //User input (string)
     int user_input_int;  //User input (integer)
     bool main_loop = true;  //Boolean for main loop
-    main_menu();  //Calling main_menu function for printing the menu
-    std::cout << "> ";
-    std::cin >> user_input_int;  //Input from the user
 
     while (main_loop) {  //Main loop
+        main_menu();  //Calling main_menu function for printing the menu
+        std::cout << "> ";
+        std::cin >> user_input_int;
+
         switch (user_input_int) {  //Main switch
             case 0:  //Exit
                 std::cout << "Exiting..." << std::endl;
