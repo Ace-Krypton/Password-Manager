@@ -12,7 +12,7 @@ auto AddCategory::add_category() -> void {
     //Unordered map for storing categories and their passwords
     std::unordered_map<std::string, std::vector<std::string>> categories;
     std::string category_input;  //User input
-    std::vector<std::string> passwords {"1l1k3l1nux", "ramiz852"};
+    std::vector<std::string> passwords {"randomPass", "ramiz123"};
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "      Adds a new category to be used with creating new passwords\n"
                  "                      For stop adding type \"quit\"\n" << std::endl;
