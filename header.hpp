@@ -7,4 +7,7 @@ class PassSearch {
         static auto pass_search() -> void;
 };
 
-auto add_category() -> void;
+class AddCategory {
+    public:
+        static auto add_category() -> void;
+};
