@@ -1,8 +1,3 @@
-//
-// Created by draco on 4/24/22.
-//
+#pragma once
 
-#ifndef PASSWORDMANAGER_HEADER_HPP
-#define PASSWORDMANAGER_HEADER_HPP
-
-#endif //PASSWORDMANAGER_HEADER_HPP
+auto main_menu() -> void;

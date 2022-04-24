@@ -1,50 +1,22 @@
 #include <iostream>
-#include <fstream>
+#include "header.hpp"
 
-using namespace std;
+auto main() -> int {
+    main_menu();  //Calling main_menu function for printing the menu
+    
+    return 0;
+}
 
-int main ()
-{
-    int ans, key;
-    string in;
-    cout<<"Press 1 to Encrypt file.\nPress 2 to Decrypt file."<<endl;
-    cin>>ans;
-    cout<<"Enter File Name -"<<endl;
-    cin>>in;
-    cout<<"Enter Key -"<<endl;
-    cin>>key;
-    if (ans == 1)
-    {
-        char c;
-        ifstream fin;
-        ofstream fout;
-        fin.open(in.c_str(), ios::binary);
-        in = "output";
-        fout.open(in.c_str(), ios::binary);
-        while (!fin.eof())
-        {
-            fin>>noskipws>>c;
-            int temp = (c + key);
-            fout<<(char)temp;
-        }
-        fin.close();
-        fout.close();
-    }
-    else if (ans == 2)
-    {
-        char c;
-        ifstream fin;
-        ofstream fout;
-        fin.open(in.c_str(), ios::binary);
-        in = "qutput";
-        fout.open(in.c_str(), ios::binary);
-        while (!fin.eof())
-        {
-            fin>>noskipws>>c;
-            int temp = (c - key);
-            fout<<(char)temp;
-        }
-        fin.close();
-        fout.close();
-    }
+/**
+ * Main menu of program
+ * @return void
+ */
+auto main_menu() -> void {
+    std::cout << "[1] Search for passwords" << std::endl;
+    std::cout << "[2] Sort passwords" << std::endl;
+    std::cout << "[3] Add a password" << std::endl;
+    std::cout << "[4] Edit a password" << std::endl;
+    std::cout << "[5] Remove a password" << std::endl;
+    std::cout << "[6] Add a category" << std::endl;
+    std::cout << "[7] Remove a category" << std::endl;
 }
