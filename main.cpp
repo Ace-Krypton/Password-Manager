@@ -19,6 +19,7 @@ auto main() -> int {
                 break;
 
             case 1:  //Search for passwords
+                PassSearch::pass_search();
                 break;
 
             case 2:  //Sort passwords
@@ -34,6 +35,7 @@ auto main() -> int {
                 break;
 
             case 6:  //Add a category
+
                 break;
 
             case 7:  //Remove a category
