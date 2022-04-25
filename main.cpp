@@ -7,9 +7,10 @@ auto main() -> int {
     int user_input_int;  //User input (integer)
     bool main_loop = true;  //Boolean for main loop
 
+    MAINLOOP:
     while (main_loop) {  //Main loop
         main_menu();  //Calling main_menu function for printing the menu
-        std::cout << "> ";
+        std::cout << "\n> ";
         std::cin >> user_input_int;
 
         switch (user_input_int) {  //Main switch
@@ -26,7 +27,29 @@ auto main() -> int {
                 break;
 
             case 3:  //Add a password
-                AddPassword::generate_password();
+                AddPassword::add_password_menu();
+                int user_input_for_add_pass;
+                std::cout << "\n> ";
+                std::cin >> user_input_for_add_pass;
+
+                switch (user_input_for_add_pass) {
+                    case 1:  //Create password
+                        break;
+
+                    case 2:  //Generate password
+                        AddPassword::generate_password();
+                        break;
+
+                    case 3:  //Add password
+                        AddPassword::add_password();
+                        break;
+
+                    case 0:  //Back
+                        goto MAINLOOP;
+
+                    default:
+                        std::cout << "Invalid command, Please try again" << std::endl;
+                }
                 break;
 
             case 4:  //Edit a password
@@ -43,7 +66,7 @@ auto main() -> int {
                 break;
 
             default:
-                std::cout << "Invalid command, Please try again";
+                std::cout << "Invalid command, Please try again" << std::endl;
         }
     }
 
