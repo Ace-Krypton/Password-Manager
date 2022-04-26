@@ -47,6 +47,7 @@ auto AddPassword::add_password() -> void {
 
     bool is_special = false;
     bool is_contain_both_cap = false;
+    bool is_contain_all = false;
     bool loop = true;
 
     int size = 0x0;  //Size of the password
@@ -78,6 +79,11 @@ auto AddPassword::add_password() -> void {
                 break;
 
             case 3:
+                is_contain_all = true;
+                loop = false;
+                break;
+
+            case 4:
                 loop = false;
                 break;
 
@@ -111,6 +117,17 @@ auto AddPassword::add_password() -> void {
         }
     }
 
+    else if (is_contain_all) {
+        srand(time(nullptr));
+        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
+        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
+        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+
+        for (int i = 3; i < size; i++) {
+            password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
+        }
+    }
+
     else {
         srand(time(nullptr));
         password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
@@ -120,8 +137,6 @@ auto AddPassword::add_password() -> void {
             password[i] = COMBINED_CHARACTERS_OF_NUM_LOW[rand() % COMBINED_CHARACTERS_OF_NUM_LOW.length() + 1];
         }
     }
-
-
 
     std::cout << "Your password is: ";
     for (int i = 0; i < size; i++) {
@@ -147,7 +162,8 @@ auto AddPassword::add_password_menu() -> void {
  * @return void
  */
 auto AddPassword::generate_password_menu() -> void {
-    std::cout << "[1] Contains both lower and uppercase" << std::endl;
-    std::cout << "[2] Should it contain special characters" << std::endl;
-    std::cout << "[3] Lowercase and numbers" << std::endl;
+    std::cout << "[1] Lowercase, Uppercase and Numbers" << std::endl;
+    std::cout << "[2] Lowercase, Special Character and Numbers" << std::endl;
+    std::cout << "[3] Lowercase, Uppercase, Special Character and Numbers" << std::endl;
+    std::cout << "[4] Lowercase and Numbers" << std::endl;
 }
