@@ -31,16 +31,6 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "          Generates password that meets requirements specified by the user\n" << std::endl;
 
-    int size = 0x0;  //Size of the password
-    std::cout << "Please enter the size of the password: ";
-    std::cin >> size;
-
-    while (size < 4) {  //Password should not be less than 4
-        std::cout << "Your password must be the minimum length of 4" << std::endl;
-        std::cout << "Please enter the size of the password: ";
-        std::cin >> size;
-    }
-
     //Character, numbers and special characters
     std::string const CAPITAL_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     std::string const LOWER_CASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
@@ -55,17 +45,83 @@ auto AddPassword::add_password() -> void {
     std::string const COMBINED_CHARACTERS_OF_NUM_CAP_SPEC = NUMBERS + CAPITAL_CASE_LETTERS + SPECIAL_CASE_LETTERS;
     std::string const COMBINED_CHARACTERS_OF_LOW_CAP_NUM = NUMBERS + LOWER_CASE_LETTERS + CAPITAL_CASE_LETTERS;
 
+    bool is_special = false;
+    bool is_contain_both_cap = false;
+    bool loop = true;
+
+    int size = 0x0;  //Size of the password
+    std::cout << "Please enter the size of the password: ";
+    std::cin >> size;
+
+    while (size < 4) {  //Password should not be less than 4
+        std::cout << "Your password must be the minimum length of 4" << std::endl;
+        std::cout << "Please enter the size of the password: ";
+        std::cin >> size;
+    }
+
+
+    while (loop) {
+        generate_password_menu();
+        int user_input_for_pass_menu;
+        std::cout << "\n> ";
+        std::cin >> user_input_for_pass_menu;
+
+        switch (user_input_for_pass_menu) {
+            case 1:
+                is_contain_both_cap = true;
+                loop = false;
+                break;
+
+            case 2:
+                is_special = true;
+                loop = false;
+                break;
+
+            case 3:
+                loop = false;
+                break;
+
+            default:
+                std::cout << "Invalid command, Please try again" << std::endl;
+        }
+    }
+
     char password[size];  //Password array
 
-    srand(time(nullptr));
-    password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-    password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-    password[2] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
-    password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+    if (is_special) {
+        srand(time(nullptr));
+        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
+        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
+        password[2] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
+        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
 
-    for (int i = 4; i < size; i++) {
-        password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
+        for (int i = 4; i < size; i++) {
+            password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
+        }
     }
+
+    else if (is_contain_both_cap) {
+        srand(time(nullptr));
+        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
+        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
+        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+
+        for (int i = 3; i < size; i++) {
+            password[i] = COMBINED_CHARACTERS_OF_LOW_CAP_NUM[rand() % COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length() + 1];
+        }
+    }
+
+    else {
+        srand(time(nullptr));
+        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
+        password[1] = NUMBERS[rand() % NUMBERS.length() + 1];
+
+        for (int i = 2; i < size; i++) {
+            password[i] = COMBINED_CHARACTERS_OF_NUM_LOW[rand() % COMBINED_CHARACTERS_OF_NUM_LOW.length() + 1];
+        }
+    }
+
+
 
     std::cout << "Your password is: ";
     for (int i = 0; i < size; i++) {
@@ -86,9 +142,12 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "[0] Back" << std::endl;
 }
 
+/**
+ * Menu of generate password option
+ * @return void
+ */
 auto AddPassword::generate_password_menu() -> void {
-    std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "[1] Contains both lower and uppercase" << std::endl;
     std::cout << "[2] Should it contain special characters" << std::endl;
-    std::cout << "[0] Back" << std::endl;
+    std::cout << "[3] Lowercase and numbers" << std::endl;
 }
