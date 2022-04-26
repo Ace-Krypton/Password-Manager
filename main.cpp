@@ -59,8 +59,7 @@ auto main() -> int {
                 break;
 
             case 6:  //Add a category
-                AddCategory addCategory;
-                addCategory.add_category();
+                AddCategory::add_category();
                 break;
 
             case 7:  //Remove a category

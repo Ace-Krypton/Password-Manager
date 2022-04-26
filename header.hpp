@@ -11,8 +11,8 @@ public:
 
 class AddCategory {
 public:
-    static std::vector<std::string> passwords;
-    auto add_category() -> void;
+    inline static std::vector<std::string> passwords {};
+    static auto add_category() -> void;
 };
 
 class AddPassword {
