@@ -138,11 +138,22 @@ auto AddPassword::add_password() -> void {
         }
     }
 
+    std::string password_as_string;
     std::cout << "Your password is: ";
     for (int i = 0; i < size; i++) {
-        std::cout << password[i];
+        password_as_string.push_back(password[i]);
     }
     std::cout << std::endl;
+
+    std::cout << "Do you want to add " << password_as_string << " to the passwords?" << std::endl;
+    std::cout << "\"y/N\": ";
+    std::string user_input;
+    std::cin >> user_input;
+
+    if (user_input == "y") {
+        AddCategory::passwords.emplace_back(password_as_string);
+        std::cout << "Password added successfully!" << std::endl;
+    }
 }
 
 /**
