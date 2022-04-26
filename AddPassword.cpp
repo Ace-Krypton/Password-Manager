@@ -57,7 +57,7 @@ auto AddPassword::add_password() -> void {
 
     char password[size];  //Password array
 
-    srand(time(nullptr));  //Seed, I literally have no idea what is this for
+    srand(time(nullptr));
     password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
     password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
     password[2] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
@@ -83,5 +83,12 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "[1] Create password" << std::endl;
     std::cout << "[2] Generate password" << std::endl;
     std::cout << "[3] Add password\n" << std::endl;
+    std::cout << "[0] Back" << std::endl;
+}
+
+auto AddPassword::generate_password_menu() -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
+    std::cout << "[1] Contains both lower and uppercase" << std::endl;
+    std::cout << "[2] Should it contain special characters" << std::endl;
     std::cout << "[0] Back" << std::endl;
 }
