@@ -20,7 +20,9 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
-    //Which pass you want to add and prints passwords that you generated/created ...
+    for (std::string& password : AddCategory::passwords) {
+        std::cout << password << std::endl;
+    }
 }
 
 /**
@@ -68,22 +70,22 @@ auto AddPassword::add_password() -> void {
         std::cin >> user_input_for_pass_menu;
 
         switch (user_input_for_pass_menu) {
-            case 1:
+            case 1:  //Lowercase, Uppercase and Numbers
                 is_contain_both_cap = true;
                 loop = false;
                 break;
 
-            case 2:
+            case 2:  //Lowercase, Special Character and Numbers
                 is_special = true;
                 loop = false;
                 break;
 
-            case 3:
+            case 3:  //Lowercase, Uppercase, Special Character and Numbers
                 is_contain_all = true;
                 loop = false;
                 break;
 
-            case 4:
+            case 4:  //Lowercase and Numbers
                 loop = false;
                 break;
 
@@ -97,11 +99,10 @@ auto AddPassword::add_password() -> void {
     if (is_special) {
         srand(time(nullptr));
         password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-        password[2] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
-        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[1] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
+        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
 
-        for (int i = 4; i < size; i++) {
+        for (int i = 3; i < size; i++) {
             password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
         }
     }
@@ -110,7 +111,7 @@ auto AddPassword::add_password() -> void {
         srand(time(nullptr));
         password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
         password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
 
         for (int i = 3; i < size; i++) {
             password[i] = COMBINED_CHARACTERS_OF_LOW_CAP_NUM[rand() % COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length() + 1];
@@ -121,7 +122,7 @@ auto AddPassword::add_password() -> void {
         srand(time(nullptr));
         password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
         password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-        password[3] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
 
         for (int i = 3; i < size; i++) {
             password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
@@ -139,12 +140,10 @@ auto AddPassword::add_password() -> void {
     }
 
     std::string password_as_string;
-    std::cout << "Your password is: ";
     for (int i = 0; i < size; i++) {
         password_as_string.push_back(password[i]);
     }
-    std::cout << std::endl;
-
+    std::cout << "Your password is: " << password_as_string << std::endl;
     std::cout << "Do you want to add " << password_as_string << " to the passwords?" << std::endl;
     std::cout << "\"y/N\": ";
     std::string user_input;
