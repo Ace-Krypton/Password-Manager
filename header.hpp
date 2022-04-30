@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <string>
 
 auto main_menu() -> void;
@@ -11,7 +11,7 @@ public:
 
 class AddCategory {
 public:
-    inline static std::vector<std::string> passwords {};
+    inline static std::map<int, std::string> passwords {};
     static auto add_category() -> void;
 };
 

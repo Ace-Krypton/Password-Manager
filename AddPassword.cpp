@@ -5,10 +5,10 @@
 #include "header.hpp"
 
 /**
- * TODO 1. Randomizer
- *      2. Options for generation
+ * TODO 1. Randomizer  [X]
+ *      2. Options for generation  [X]
  *      3. Create Password
- *      4. Print those created/generated password in add_password
+ *      4. Print those created/generated password in add_password  [X]
  *      5. Finish up with the add_password
  */
 
@@ -20,8 +20,8 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
-    for (std::string& password : AddCategory::passwords) {
-        std::cout << password << std::endl;
+    for (auto &pair : AddCategory::passwords) {
+        std::cout << "{ " << pair.first << " : " << pair.second << " }" << std::endl;
     }
 }
 
@@ -139,18 +139,19 @@ auto AddPassword::add_password() -> void {
         }
     }
 
-    std::string password_as_string;
-    for (int i = 0; i < size; i++) {
+    std::string password_as_string;  //Converting password[] to std::string
+    for (int i = 0; i < size; i++) {  //Adding elements to our std::string
         password_as_string.push_back(password[i]);
     }
+
     std::cout << "Your password is: " << password_as_string << std::endl;
     std::cout << "Do you want to add " << password_as_string << " to the passwords?" << std::endl;
     std::cout << "\"y/N\": ";
     std::string user_input;
     std::cin >> user_input;
 
-    if (user_input == "y") {
-        AddCategory::passwords.emplace_back(password_as_string);
+    if (user_input == "y") {  //If user enters "y", this will add generated password to the vector
+        AddCategory::passwords[1] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }
 }
