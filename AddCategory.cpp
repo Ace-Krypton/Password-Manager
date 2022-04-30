@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unordered_map>
-#include <map>
 #include "header.hpp"
 
 /**
@@ -11,7 +9,6 @@
  */
 auto AddCategory::add_category() -> void {
     //Unordered map for storing categories and their passwords
-    std::unordered_map<std::string, std::map<int, std::string>> categories;
     std::string category_input;  //User input
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "      Adds a new category to be used with creating new passwords\n"
@@ -24,5 +21,6 @@ auto AddCategory::add_category() -> void {
         std::cout << std::endl;
     }
 
+    categories.erase("quit");  //Somehow, it adds "quit" to the list I don't know why
     std::cout << "Category(s) added successfully\n" << std::endl;
 }

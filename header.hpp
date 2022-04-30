@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <unordered_map>
 #include <string>
 
 auto main_menu() -> void;
@@ -12,6 +13,7 @@ public:
 class AddCategory {
 public:
     inline static std::map<int, std::string> passwords {};
+    inline static std::unordered_map<std::string, std::string> categories {};
     static auto add_category() -> void;
 };
 

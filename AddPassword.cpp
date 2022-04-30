@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <set>
 #include <ctime>
 #include "header.hpp"
 
@@ -20,9 +21,41 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
-    for (auto &pair : AddCategory::passwords) {
-        std::cout << "{ " << pair.first << " : " << pair.second << " }" << std::endl;
+    std::cout << "Please choose category" << std::endl;
+    for (auto &category : AddCategory::categories) {
+        std::cout << category.first << std::endl;
     }
+
+    std::string category_name;
+    std::cout << "> ";
+    std::cin >> category_name;
+
+    if (AddCategory::categories.contains(category_name)) {
+        std::cout << "Key found!" << std::endl;
+        for (auto &password : AddCategory::passwords) {
+            std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
+        }
+        std::cout << "Which password you wanna add?" << std::endl;
+        int password_id;
+        std::cout << "> ";
+        std::cin >> password_id;
+        auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
+        if (it->second.empty()) {
+            std::cout << "You don't have any password with that key!" << std::endl;
+            return;
+        }
+        AddCategory::categories[category_name] = it->second;
+        std::cout << "Password added!" << std::endl;
+        AddCategory::passwords.erase(it->first);
+        for (auto &category : AddCategory::categories) {
+            std::cout << "{ " << category.first << ": " << category.second << " }" << std::endl;
+        }
+        for (auto &password : AddCategory::passwords) {
+            std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
+        }
+    }
+
+    else std::cout << "Category name does not exist! Try again" << std::endl;
 }
 
 /**
@@ -62,7 +95,6 @@ auto AddPassword::add_password() -> void {
         std::cin >> size;
     }
 
-
     while (loop) {
         generate_password_menu();
         int user_input_for_pass_menu;
@@ -95,6 +127,7 @@ auto AddPassword::add_password() -> void {
     }
 
     char password[size];  //Password array
+    int num = rand() % 100 + 1;
 
     if (is_special) {
         srand(time(nullptr));
@@ -151,7 +184,7 @@ auto AddPassword::add_password() -> void {
     std::cin >> user_input;
 
     if (user_input == "y") {  //If user enters "y", this will add generated password to the vector
-        AddCategory::passwords[1] = password_as_string;
+        AddCategory::passwords[num] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }
 }
