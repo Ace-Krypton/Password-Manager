@@ -30,27 +30,56 @@ auto AddPassword::add_password() -> void {
     std::cout << "> ";
     std::cin >> category_name;
 
-    if (AddCategory::categories.contains(category_name)) {
+    std::vector<std::string> matched_passwords;
+
+    if (AddCategory::categories.contains(category_name)) {  //If categories contains user input
         std::cout << "Key found!" << std::endl;
-        for (auto &password : AddCategory::passwords) {
+
+        for (auto &password : AddCategory::passwords) {  //Printing passwords
             std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
         }
+
         std::cout << "Which password you wanna add?" << std::endl;
         int password_id;
-        std::cout << "> ";
-        std::cin >> password_id;
-        auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
-        if (it->second.empty()) {
-            std::cout << "You don't have any password with that key!" << std::endl;
-            return;
+
+        while (password_id != -1) {
+            std::cout << "> ";
+            std::cin >> password_id;
+            auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
+
+            if (it->second.empty()) {  //If the value is empty it returns
+                std::cout << "You don't have any password with that key!" << std::endl;
+            }
+
+            else {
+                std::cout << "Password added!" <<std::endl;
+                matched_passwords.emplace_back(it->second);
+            }
         }
-        AddCategory::categories[category_name] = it->second;
+
+        for (auto &vec : matched_passwords) {
+            std::cout << vec << std::endl;
+        }
+
+        AddCategory::categories[category_name] = matched_passwords;  //Adding value to the key of the category
         std::cout << "Password added!" << std::endl;
-        AddCategory::passwords.erase(it->first);
-        for (auto &category : AddCategory::categories) {
-            std::cout << "{ " << category.first << ": " << category.second << " }" << std::endl;
+
+//        for (auto &matched : matched_passwords) {
+//            AddCategory::passwords.erase(matched);  //After adding, removing the key from passwords
+//        }
+
+        matched_passwords.clear();  //Emptying our vector after adding
+
+        for (auto &category : AddCategory::categories) {  //Printing categories
+            std::cout << "{ " << category.first << ": ";
+            for (auto &matched : category.second) {
+                std::cout << matched << ", ";
+            }
+            std::cout << " }" << std::endl;
         }
-        for (auto &password : AddCategory::passwords) {
+
+        std::cout << "-------------------------------------------------------" << std::endl;
+        for (auto &password : AddCategory::passwords) {  //Printing passwords
             std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
         }
     }
