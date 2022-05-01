@@ -64,26 +64,22 @@ auto AddPassword::add_password() -> void {
         AddCategory::categories[category_name] = matched_passwords;  //Adding value to the key of the category
         std::cout << "Password added!" << std::endl;
 
-//        for (auto &matched : matched_passwords) {
-//            AddCategory::passwords.erase(matched);  //After adding, removing the key from passwords
-//        }
+        //--------------------------------After adding, removing the key from passwords---------------------------------
+        //Code here...
 
         matched_passwords.clear();  //Emptying our vector after adding
 
         for (auto &category : AddCategory::categories) {  //Printing categories
+            auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
             std::cout << "{ " << category.first << ": ";  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
                 if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
                     std::cout << matched << ", ";
                 }
-                std::cout << category.second.back();  //If the element is the last print the element
+                std::cout << category.second.back();  //If the element is the last, print the element
             }
+            if (value->second.empty()) std::cout << "No passwords found";  //If iterator is empty, then prints info
             std::cout << " }" << std::endl;
-        }
-
-        std::cout << "-------------------------------------------------------" << std::endl;
-        for (auto &password : AddCategory::passwords) {  //Printing passwords
-            std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
         }
     }
 
