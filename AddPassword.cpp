@@ -54,29 +54,25 @@ auto AddPassword::add_password() -> void {
             else {
                 matched_passwords.emplace_back(it->second);  //If the password found add it to the vector
                 std::cout << "Password added!" <<std::endl;
+                AddCategory::passwords.erase(it);  //After adding removing that password from map
             }
         }
 
-        for (auto &vec : matched_passwords) {  //Printing our matched_passwords vector
-            std::cout << vec << std::endl;
-        }
-
-        AddCategory::categories[category_name] = matched_passwords;  //Adding value to the key of the category
+        //Appending matched_passwords vector to the value of unordered_map
+        auto &v = AddCategory::categories[category_name];
+        //From end of the previous value to the end of the matched_passwords vector
+        v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
         std::cout << "Password added!" << std::endl;
-
-        //--------------------------------After adding, removing the key from passwords---------------------------------
-        //Code here...
-
         matched_passwords.clear();  //Emptying our vector after adding
 
         for (auto &category : AddCategory::categories) {  //Printing categories
             auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
             std::cout << "{ " << category.first << ": ";  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
-                    std::cout << matched << ", ";
-                }
-                std::cout << category.second.back();  //If the element is the last, print the element
+//                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
+//                }
+//                std::cout << category.second.back();  //If the element is the last, print the element
+                std::cout << matched << " ";
             }
             if (value->second.empty()) std::cout << "No passwords found";  //If iterator is empty, then prints info
             std::cout << " }" << std::endl;
