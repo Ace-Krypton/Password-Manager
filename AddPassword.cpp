@@ -22,7 +22,7 @@ auto AddPassword::add_password() -> void {
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
     std::cout << "Please choose category" << std::endl;
-    for (auto &category : AddCategory::categories) {
+    for (auto &category : AddCategory::categories) {  //Prints out categories
         std::cout << category.first << std::endl;
     }
 
@@ -30,7 +30,7 @@ auto AddPassword::add_password() -> void {
     std::cout << "> ";
     std::cin >> category_name;
 
-    std::vector<std::string> matched_passwords;
+    std::vector<std::string> matched_passwords;  //Vector that stores our matched passwords
 
     if (AddCategory::categories.contains(category_name)) {  //If categories contains user input
         std::cout << "Key found!" << std::endl;
@@ -40,9 +40,9 @@ auto AddPassword::add_password() -> void {
         }
 
         std::cout << "Which password you wanna add?" << std::endl;
-        int password_id;
+        int password_id;  //Password key
 
-        while (password_id != -1) {
+        while (password_id != -1) {  //While user input is different than "-1"
             std::cout << "> ";
             std::cin >> password_id;
             auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
@@ -52,12 +52,12 @@ auto AddPassword::add_password() -> void {
             }
 
             else {
+                matched_passwords.emplace_back(it->second);  //If the password found add it to the vector
                 std::cout << "Password added!" <<std::endl;
-                matched_passwords.emplace_back(it->second);
             }
         }
 
-        for (auto &vec : matched_passwords) {
+        for (auto &vec : matched_passwords) {  //Printing our matched_passwords vector
             std::cout << vec << std::endl;
         }
 
@@ -71,9 +71,12 @@ auto AddPassword::add_password() -> void {
         matched_passwords.clear();  //Emptying our vector after adding
 
         for (auto &category : AddCategory::categories) {  //Printing categories
-            std::cout << "{ " << category.first << ": ";
-            for (auto &matched : category.second) {
-                std::cout << matched << ", ";
+            std::cout << "{ " << category.first << ": ";  //Printing the keys of unordered_map
+            for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
+                if (!(matched == category.second.back())) {  //If the element is not the last add ","
+                    std::cout << matched << ", ";
+                }
+                std::cout << category.second.back();  //If the element is the last print the element
             }
             std::cout << " }" << std::endl;
         }
@@ -201,7 +204,7 @@ auto AddPassword::add_password() -> void {
         }
     }
 
-    std::string password_as_string;  //Converting password[] to std::string
+    std::string password_as_string;  //Converting char password[] to std::string
     for (int i = 0; i < size; i++) {  //Adding elements to our std::string
         password_as_string.push_back(password[i]);
     }
