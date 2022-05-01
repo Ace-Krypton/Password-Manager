@@ -73,7 +73,7 @@ auto AddPassword::add_password() -> void {
         for (auto &category : AddCategory::categories) {  //Printing categories
             std::cout << "{ " << category.first << ": ";  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-                if (!(matched == category.second.back())) {  //If the element is not the last add ","
+                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
                     std::cout << matched << ", ";
                 }
                 std::cout << category.second.back();  //If the element is the last print the element
