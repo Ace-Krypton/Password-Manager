@@ -27,30 +27,33 @@ auto main() -> int {
                 break;
 
             case 3:  //Add a password
-                AddPassword::add_password_menu();
-                int user_input_for_add_pass;
-                std::cout << "\n> ";
-                std::cin >> user_input_for_add_pass;
+                while (true)
+                {
+                    AddPassword::add_password_menu();
+                    int user_input_for_add_pass;
+                    std::cout << "\n> ";
+                    std::cin >> user_input_for_add_pass;
+                    switch (user_input_for_add_pass)
+                    {
+                        case 1:  //Create password
+                            AddPassword::create_password();
+                            break;
 
-                switch (user_input_for_add_pass) {
-                    case 1:  //Create password
-                        break;
+                        case 2:  //Generate password
+                            AddPassword::generate_password();
+                            break;
 
-                    case 2:  //Generate password
-                        AddPassword::generate_password();
-                        break;
+                        case 3:  //Add password
+                            AddPassword::add_password();
+                            break;
 
-                    case 3:  //Add password
-                        AddPassword::add_password();
-                        break;
+                        case 0:  //Back
+                            goto MAINLOOP;
 
-                    case 0:  //Back
-                        goto MAINLOOP;
-
-                    default:
-                        std::cout << "Invalid command, Please try again" << std::endl;
+                        default:
+                            std::cout << "Invalid command, Please try again" << std::endl;
+                    }
                 }
-                break;
 
             case 4:  //Edit a password
                 break;

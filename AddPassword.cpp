@@ -82,6 +82,23 @@ auto AddPassword::add_password() -> void {
     else std::cout << "Category name does not exist! Try again" << std::endl;
 }
 
+auto AddPassword::create_password() -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
+    std::cout << "                          Add your own password to the list\n" << std::endl;
+    int key = rand() % 200 + 100;
+    std::string user_entered_password;
+    std::cout << "Please enter the password: ";
+    std::cin >> user_entered_password;
+
+    while (user_entered_password.length() < 4) {
+        std::cout << "Your password must be the minimum length of 4" << std::endl;
+        std::cout << "Please enter the password:";
+        std::cin >> user_entered_password;
+    }
+
+    AddCategory::passwords[key] = user_entered_password;
+}
+
 /**
  * Generates passwords automatically
  * @return void
@@ -109,7 +126,7 @@ auto AddPassword::add_password() -> void {
     bool is_contain_all = false;
     bool loop = true;
 
-    int size = 0x0;  //Size of the password
+    int size = 0x0;  //Size of the password, looks cool in hexadecimal
     std::cout << "Please enter the size of the password: ";
     std::cin >> size;
 
@@ -221,7 +238,7 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "[1] Create password" << std::endl;
     std::cout << "[2] Generate password" << std::endl;
-    std::cout << "[3] Add password\n" << std::endl;
+    std::cout << "[3] Add password to the category\n" << std::endl;
     std::cout << "[0] Back" << std::endl;
 }
 
