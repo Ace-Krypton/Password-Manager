@@ -87,6 +87,6 @@ auto main_menu() -> void {
     std::cout << "[4] Edit a password" << std::endl;
     std::cout << "[5] Remove a password" << std::endl;
     std::cout << "[6] Add a category" << std::endl;
-    std::cout << "[7] Remove a category" << std::endl;
+    std::cout << "[7] Remove a category\n" << std::endl;
     std::cout << "[0] Exit" << std::endl;
 }

@@ -21,5 +21,5 @@ auto AddCategory::add_category() -> void {
     }
 
     categories.erase("quit");  //Somehow, it adds "quit" to the list I don't know why
-    std::cout << "Category(s) added successfully\n" << std::endl;
+    std::cout << "Category(s) added successfully!\n" << std::endl;
 }

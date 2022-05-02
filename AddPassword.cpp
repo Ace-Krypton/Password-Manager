@@ -8,9 +8,11 @@
 /**
  * TODO 1. Randomizer  [X]
  *      2. Options for generation  [X]
- *      3. Create Password
+ *      3. Create Password  [X]
  *      4. Print those created/generated password in add_password  [X]
  *      5. Finish up with the add_password
+ *      6. Add custom key creating algorithm
+ *      7. Change rand() to Random library
  */
 
 /**
@@ -21,25 +23,35 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
-    std::cout << "Please choose category" << std::endl;
+    if (AddCategory::categories.empty()) {  //If key is empty, then print info
+        std::cout << "You don't have any categories yet please, create one" << std::endl;
+        return;
+    }
+
+    std::cout << "\t\t\t\tPlease choose a category\n" << std::endl;
     for (auto &category : AddCategory::categories) {  //Prints out categories
-        std::cout << category.first << std::endl;
+        std::cout << "[+] " << category.first << std::endl;
     }
 
     std::string category_name;
-    std::cout << "> ";
+    std::cout << "\n" << "> ";
     std::cin >> category_name;
 
     std::vector<std::string> matched_passwords;  //Vector that stores our matched passwords
 
     if (AddCategory::categories.contains(category_name)) {  //If categories contains user input
-        std::cout << "Key found!" << std::endl;
+        std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
-        for (auto &password : AddCategory::passwords) {  //Printing passwords
-            std::cout << "{ " << password.first << ": " << password.second << " }" << std::endl;
+        if (AddCategory::passwords.empty()) {
+            std::cout << "You don't have any passwords yet please, create one" << std::endl;
+            return;
         }
 
-        std::cout << "Which password you wanna add?" << std::endl;
+        for (auto &password : AddCategory::passwords) {  //Printing passwords
+            std::cout << password.first << ": " << password.second << std::endl;
+        }
+
+        std::cout << "\n\tWhich password you wanna add? Enter the number comes before password\n" << std::endl;
         int password_id;  //Password key
 
         while (password_id != -1) {  //While user input is different than "-1"
@@ -64,18 +76,19 @@ auto AddPassword::add_password() -> void {
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
         std::cout << "Password added!" << std::endl;
         matched_passwords.clear();  //Emptying our vector after adding
+        int count = 0;
 
         for (auto &category : AddCategory::categories) {  //Printing categories
             auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
-            std::cout << "{ " << category.first << ": ";  //Printing the keys of unordered_map
+            std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-//                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
-//                }
-//                std::cout << category.second.back();  //If the element is the last, print the element
-                std::cout << matched << " ";
+                count++;
+                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
+                }
+                std::cout << "\n" << count << ": " << matched;
             }
             if (value->second.empty()) std::cout << "No passwords found";  //If iterator is empty, then prints info
-            std::cout << " }" << std::endl;
+            std::cout << "\n------------------------" << std::endl;
         }
     }
 
@@ -95,6 +108,8 @@ auto AddPassword::create_password() -> void {
         std::cout << "Please enter the password:";
         std::cin >> user_entered_password;
     }
+
+    std::cout << "Password added!" << std::endl;
 
     AddCategory::passwords[key] = user_entered_password;
 }
@@ -137,6 +152,7 @@ auto AddPassword::create_password() -> void {
     }
 
     while (loop) {
+        std::cout << "\n\t\t\t\tChoose the combination\n" << std::endl;
         generate_password_menu();
         int user_input_for_pass_menu;
         std::cout << "\n> ";
