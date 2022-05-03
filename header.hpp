@@ -20,6 +20,7 @@ public:
 
 class AddPassword {
 public:
+    static auto custom_key_generator(std::map<int, std::string> &passwords) -> void;
     static auto create_password() -> void;
     static auto add_password() -> void;
     static auto add_password_menu() -> void;

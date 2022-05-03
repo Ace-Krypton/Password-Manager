@@ -56,6 +56,7 @@ auto main() -> int {
                 }
 
             case 4:  //Edit a password
+                AddPassword::custom_key_generator(AddCategory::passwords);
                 break;
 
             case 5:  //Remove a password

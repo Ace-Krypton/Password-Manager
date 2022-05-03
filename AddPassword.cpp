@@ -65,7 +65,7 @@ auto AddPassword::add_password() -> void {
 
             else {
                 matched_passwords.emplace_back(it->second);  //If the password found add it to the vector
-                std::cout << "Password added!" <<std::endl;
+                std::cout << "Password added!" << std::endl;
                 AddCategory::passwords.erase(it);  //After adding removing that password from map
             }
         }
@@ -76,18 +76,16 @@ auto AddPassword::add_password() -> void {
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
         std::cout << "Password added!" << std::endl;
         matched_passwords.clear();  //Emptying our vector after adding
-        int count = 0;
 
         for (auto &category : AddCategory::categories) {  //Printing categories
             auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
             std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-                count++;
                 if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
                 }
-                std::cout << "\n" << count << ": " << matched;
+                std::cout << "\n" << "[*] " << matched;
             }
-            if (value->second.empty()) std::cout << "No passwords found";  //If iterator is empty, then prints info
+            if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
             std::cout << "\n------------------------" << std::endl;
         }
     }
@@ -243,6 +241,18 @@ auto AddPassword::create_password() -> void {
     if (user_input == "y") {  //If user enters "y", this will add generated password to the vector
         AddCategory::passwords[num] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
+    }
+}
+
+auto AddPassword::custom_key_generator(std::map<int, std::string> &passwords) -> void {
+    int count = 0;
+    for (auto &keys : passwords) {
+        count++;
+        auto extract = passwords.find(keys.first);
+        if (extract->first > 1) {
+            std::swap(passwords[count], extract->second);
+            passwords.erase(extract);
+        }
     }
 }
 
