@@ -43,7 +43,11 @@ auto main() -> int {
                             AddPassword::generate_password();
                             break;
 
-                        case 3:  //Add password
+                        case 3:  //Print password
+                            AddPassword::print_password(AddCategory::passwords);
+                            break;
+
+                        case 4:  //Add password
                             AddPassword::add_password();
                             break;
 
@@ -56,7 +60,6 @@ auto main() -> int {
                 }
 
             case 4:  //Edit a password
-                AddPassword::custom_key_generator(AddCategory::passwords);
                 break;
 
             case 5:  //Remove a password

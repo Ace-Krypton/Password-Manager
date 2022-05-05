@@ -10,9 +10,11 @@
  *      2. Options for generation  [X]
  *      3. Create Password  [X]
  *      4. Print those created/generated password in add_password  [X]
- *      5. Finish up with the add_password
- *      6. Add custom key creating algorithm
- *      7. Change rand() to Random library
+ *      5. Finish up with the add_password  [X]
+ *      6. Add custom key creating algorithm  [FAIL]
+ *      7. Change rand() to Random library  [NOT YET]
+ *      8. Created passwords safety or uniqueness info for user  [NOT YET]
+ *      9. Each password could require additional login or URL  [NOT YET]
  */
 
 /**
@@ -184,6 +186,7 @@ auto AddPassword::create_password() -> void {
     char password[size];  //Password array
     int num = rand() % 100 + 1;
 
+
     if (is_special) {
         srand(time(nullptr));
         password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
@@ -244,16 +247,13 @@ auto AddPassword::create_password() -> void {
     }
 }
 
-auto AddPassword::custom_key_generator(std::map<int, std::string> &passwords) -> void {
-    int count = 0;
-    for (auto &keys : passwords) {
-        count++;
-        auto extract = passwords.find(keys.first);
-        if (extract->first > 1) {
-            std::swap(passwords[count], extract->second);
-            passwords.erase(extract);
-        }
-    }
+auto AddPassword::print_password(const std::map<int, std::string> &passwords) -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
+    std::cout << "\t\t\t\tThese are the passwords\n" << std::endl;
+
+    for (const auto& pass : passwords) {  //Printing the map
+         std::cout << "[*] " << pass.first << " : " << pass.second << std::endl;
+     }
 }
 
 /**
@@ -264,7 +264,8 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "[1] Create password" << std::endl;
     std::cout << "[2] Generate password" << std::endl;
-    std::cout << "[3] Add password to the category\n" << std::endl;
+    std::cout << "[3] Print passwords" << std::endl;
+    std::cout << "[4] Add password to the category\n" << std::endl;
     std::cout << "[0] Back" << std::endl;
 }
 
