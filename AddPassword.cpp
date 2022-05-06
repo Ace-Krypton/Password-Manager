@@ -201,6 +201,7 @@ auto AddPassword::create_password() -> void {
     int key = keys(engine);
 
     //Generators, that generates number from 0 to length()
+    //Used size_t aka unsigned long, because I do not need any negative value
     std::uniform_int_distribution<size_t> lower(0, LOWER_CASE_LETTERS.length());
     std::uniform_int_distribution<size_t> special(0, SPECIAL_CASE_LETTERS.length());
     std::uniform_int_distribution<size_t> number(0, NUMBERS.length());
@@ -210,6 +211,7 @@ auto AddPassword::create_password() -> void {
     std::uniform_int_distribution<size_t> combination_num_low(0, COMBINED_CHARACTERS_OF_NUM_LOW.length());
 
 
+    //Conditions
     if (is_special) {
         password[0] = LOWER_CASE_LETTERS[lower(engine)];
         password[1] = SPECIAL_CASE_LETTERS[special(engine)];
