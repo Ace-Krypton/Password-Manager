@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
 #include <set>
 #include <ctime>
+#include <chrono>
+#include <random>
 #include "header.hpp"
 
 /**
@@ -15,6 +16,10 @@
  *      7. Change rand() to Random library  [NOT YET]
  *      8. Created passwords safety or uniqueness info for user  [NOT YET]
  *      9. Each password could require additional login or URL  [NOT YET]
+ *
+ *      Random engine:
+ *          Stateful generator that generates random values within predefined min and max
+ *          Not truly random -- Pseudorandom
  */
 
 /**
@@ -98,7 +103,12 @@ auto AddPassword::add_password() -> void {
 auto AddPassword::create_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                          Add your own password to the list\n" << std::endl;
-    int key = rand() % 200 + 100;
+
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
+    std::default_random_engine engine(seed);  ////Seeded engine
+    std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+
+    int key = keys(engine);
     std::string user_entered_password;
     std::cout << "Please enter the password: ";
     std::cin >> user_entered_password;
@@ -183,50 +193,59 @@ auto AddPassword::create_password() -> void {
         }
     }
 
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
+    std::default_random_engine engine(seed);  //Seeded engine
+    std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+
     char password[size];  //Password array
-    int num = rand() % 100 + 1;
+    int key = keys(engine);
+
+    //Generators, that generates number from 0 to length()
+    std::uniform_int_distribution<size_t> lower(0, LOWER_CASE_LETTERS.length());
+    std::uniform_int_distribution<size_t> special(0, SPECIAL_CASE_LETTERS.length());
+    std::uniform_int_distribution<size_t> number(0, NUMBERS.length());
+    std::uniform_int_distribution<size_t> capital(0, CAPITAL_CASE_LETTERS.length());
+    std::uniform_int_distribution<size_t> combination_all(0, COMBINED_CHARACTERS_OF_ALL.length());
+    std::uniform_int_distribution<size_t> combination_low_cap_num(0, COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length());
+    std::uniform_int_distribution<size_t> combination_num_low(0, COMBINED_CHARACTERS_OF_NUM_LOW.length());
 
 
     if (is_special) {
-        srand(time(nullptr));
-        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-        password[1] = SPECIAL_CASE_LETTERS[rand() % SPECIAL_CASE_LETTERS.length() + 1];
-        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[0] = LOWER_CASE_LETTERS[lower(engine)];
+        password[1] = SPECIAL_CASE_LETTERS[special(engine)];
+        password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {
-            password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
+            password[i] = COMBINED_CHARACTERS_OF_ALL[combination_all(engine)];
         }
     }
 
     else if (is_contain_both_cap) {
-        srand(time(nullptr));
-        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[0] = LOWER_CASE_LETTERS[lower(engine)];
+        password[1] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {
-            password[i] = COMBINED_CHARACTERS_OF_LOW_CAP_NUM[rand() % COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length() + 1];
+            password[i] = COMBINED_CHARACTERS_OF_LOW_CAP_NUM[combination_low_cap_num(engine)];
         }
     }
 
     else if (is_contain_all) {
-        srand(time(nullptr));
-        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-        password[1] = CAPITAL_CASE_LETTERS[rand() % CAPITAL_CASE_LETTERS.length() + 1];
-        password[2] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[0] = LOWER_CASE_LETTERS[lower(engine)];
+        password[1] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {
-            password[i] = COMBINED_CHARACTERS_OF_ALL[rand() % COMBINED_CHARACTERS_OF_ALL.length() + 1];
+            password[i] = COMBINED_CHARACTERS_OF_ALL[combination_all(engine)];
         }
     }
 
     else {
-        srand(time(nullptr));
-        password[0] = LOWER_CASE_LETTERS[rand() % LOWER_CASE_LETTERS.length() + 1];
-        password[1] = NUMBERS[rand() % NUMBERS.length() + 1];
+        password[0] = LOWER_CASE_LETTERS[lower(engine)];
+        password[1] = NUMBERS[number(engine)];
 
         for (int i = 2; i < size; i++) {
-            password[i] = COMBINED_CHARACTERS_OF_NUM_LOW[rand() % COMBINED_CHARACTERS_OF_NUM_LOW.length() + 1];
+            password[i] = COMBINED_CHARACTERS_OF_NUM_LOW[combination_num_low(engine)];
         }
     }
 
@@ -242,7 +261,7 @@ auto AddPassword::create_password() -> void {
     std::cin >> user_input;
 
     if (user_input == "y") {  //If user enters "y", this will add generated password to the vector
-        AddCategory::passwords[num] = password_as_string;
+        AddCategory::passwords[key] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }
 }
