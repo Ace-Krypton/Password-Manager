@@ -153,11 +153,22 @@ auto AddPassword::create_password() -> void {
 
     else {
         std::cout << "Password Strength: Weak" << std::endl;
+        std::cout << "Do you really want to add \""
+        << user_entered_password << "\" to the list?" << std::endl;
+        std::cout << "\"y/N\": ";
+        std::string yes_or_no;
+        std::cin >> yes_or_no;
+
+        if (yes_or_no == "N" || yes_or_no == "n") {
+            std::cout << "Trying again..." << std::endl;
+            AddPassword::create_password();
+            return;
+        }
     }
 
     std::cout << "Password added!" << std::endl;
 
-    AddCategory::passwords[key] = user_entered_password;
+    AddCategory::passwords[key] = user_entered_password;  //Adding passwords to the map
 }
 
 /**
@@ -300,7 +311,7 @@ auto AddPassword::create_password() -> void {
     std::string user_input;
     std::cin >> user_input;
 
-    if (user_input == "y") {  //If user enters "y", this will add generated password to the vector
+    if (user_input != "N" || user_input != "n") {  //If user enters "y", this will add generated password to the vector
         AddCategory::passwords[key] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }
