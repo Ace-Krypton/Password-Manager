@@ -13,7 +13,7 @@
  *      5. Finish up with the add_password  [X]
  *      6. Add custom key creating algorithm  [FAIL]
  *      7. Change rand() to Random library  [X]
- *      8. Created passwords safety or uniqueness info for user  [NOT YET]
+ *      8. Created passwords safety or uniqueness info for user  [X]
  *      9. Each password could require additional login or URL  [NOT YET]
  */
 
@@ -110,6 +110,7 @@ auto AddPassword::create_password() -> void {
     bool hasUpper = false;
     bool hasLower = false;
     bool hasDigit = false;
+    bool hasSpecial = false;
 
     //Checking the length of the password
     while (user_entered_password.length() < 4) {
@@ -131,11 +132,19 @@ auto AddPassword::create_password() -> void {
         if (std::isdigit(i)) { //Contains digits
             hasDigit = true;
         }
+
+        if (!std::isalpha(i) && !std::isdigit(i)) {  //Contains special characters
+            hasSpecial = true;
+        }
     }
 
     //Processing the password strength
-    if(hasLower && hasUpper && hasDigit) {
+    if(hasLower && hasUpper && hasDigit && hasSpecial) {
         std::cout << "Password Strength: Strong " << std::endl;
+    }
+
+    else if(hasLower && hasUpper && hasDigit) {
+        std::cout << "Password Strength: Good " << std::endl;
     }
 
     else if (hasLower && hasDigit) {
