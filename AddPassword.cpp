@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <set>
-#include <ctime>
 #include <chrono>
 #include <random>
 #include "header.hpp"
@@ -13,13 +12,9 @@
  *      4. Print those created/generated password in add_password  [X]
  *      5. Finish up with the add_password  [X]
  *      6. Add custom key creating algorithm  [FAIL]
- *      7. Change rand() to Random library  [NOT YET]
+ *      7. Change rand() to Random library  [X]
  *      8. Created passwords safety or uniqueness info for user  [NOT YET]
  *      9. Each password could require additional login or URL  [NOT YET]
- *
- *      Random engine:
- *          Stateful generator that generates random values within predefined min and max
- *          Not truly random -- Pseudorandom
  */
 
 /**
@@ -88,8 +83,6 @@ auto AddPassword::add_password() -> void {
             auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
             std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
             for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-                if (!(matched == category.second.back())) {  //If the element is not the last, print and add ","
-                }
                 std::cout << "\n" << "[*] " << matched;
             }
             if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
@@ -113,10 +106,44 @@ auto AddPassword::create_password() -> void {
     std::cout << "Please enter the password: ";
     std::cin >> user_entered_password;
 
+    //Password strength
+    bool hasUpper = false;
+    bool hasLower = false;
+    bool hasDigit = false;
+
+    //Checking the length of the password
     while (user_entered_password.length() < 4) {
         std::cout << "Your password must be the minimum length of 4" << std::endl;
         std::cout << "Please enter the password:";
         std::cin >> user_entered_password;
+    }
+
+    //Checking password strength
+    for (char i : user_entered_password) {
+        if (std::islower(i)) {  //Contains lower case
+            hasLower = true;
+        }
+
+        if (std::isupper(i)) {  //Contains upper case
+            hasUpper = true;
+        }
+
+        if (std::isdigit(i)) { //Contains digits
+            hasDigit = true;
+        }
+    }
+
+    //Processing the password strength
+    if(hasLower && hasUpper && hasDigit) {
+        std::cout << "Password Strength: Strong " << std::endl;
+    }
+
+    else if (hasLower && hasDigit) {
+        std::cout << "Password Strength: Middle" << std::endl;
+    }
+
+    else {
+        std::cout << "Password Strength: Weak" << std::endl;
     }
 
     std::cout << "Password added!" << std::endl;
@@ -194,6 +221,9 @@ auto AddPassword::create_password() -> void {
     }
 
     unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
+    //Random engine:
+    //          Stateful generator that generates random values within predefined min and max
+    //          Not truly random -- Pseudorandom
     std::default_random_engine engine(seed);  //Seeded engine
     std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
 
@@ -201,15 +231,14 @@ auto AddPassword::create_password() -> void {
     int key = keys(engine);
 
     //Generators, that generates number from 0 to length()
-    //Used size_t aka unsigned long, because I do not need any negative value
-    std::uniform_int_distribution<size_t> lower(0, LOWER_CASE_LETTERS.length());
-    std::uniform_int_distribution<size_t> special(0, SPECIAL_CASE_LETTERS.length());
-    std::uniform_int_distribution<size_t> number(0, NUMBERS.length());
-    std::uniform_int_distribution<size_t> capital(0, CAPITAL_CASE_LETTERS.length());
-    std::uniform_int_distribution<size_t> combination_all(0, COMBINED_CHARACTERS_OF_ALL.length());
-    std::uniform_int_distribution<size_t> combination_low_cap_num(0, COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length());
-    std::uniform_int_distribution<size_t> combination_num_low(0, COMBINED_CHARACTERS_OF_NUM_LOW.length());
-
+    //Used size_t aka unsigned int 16 which is 2 bytes, because I do not need any negative value
+    std::uniform_int_distribution<uint16_t> lower(0, LOWER_CASE_LETTERS.length());
+    std::uniform_int_distribution<uint16_t> special(0, SPECIAL_CASE_LETTERS.length());
+    std::uniform_int_distribution<uint16_t> number(0, NUMBERS.length());
+    std::uniform_int_distribution<uint16_t> capital(0, CAPITAL_CASE_LETTERS.length());
+    std::uniform_int_distribution<uint16_t> combination_all(0, COMBINED_CHARACTERS_OF_ALL.length());
+    std::uniform_int_distribution<uint16_t> combination_low_cap_num(0, COMBINED_CHARACTERS_OF_LOW_CAP_NUM.length());
+    std::uniform_int_distribution<uint16_t> combination_num_low(0, COMBINED_CHARACTERS_OF_NUM_LOW.length());
 
     //Conditions
     if (is_special) {
@@ -223,8 +252,8 @@ auto AddPassword::create_password() -> void {
     }
 
     else if (is_contain_both_cap) {
-        password[0] = LOWER_CASE_LETTERS[lower(engine)];
-        password[1] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[0] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[1] = LOWER_CASE_LETTERS[lower(engine)];
         password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {
@@ -233,8 +262,8 @@ auto AddPassword::create_password() -> void {
     }
 
     else if (is_contain_all) {
-        password[0] = LOWER_CASE_LETTERS[lower(engine)];
-        password[1] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[0] = CAPITAL_CASE_LETTERS[capital(engine)];
+        password[1] = LOWER_CASE_LETTERS[lower(engine)];
         password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {

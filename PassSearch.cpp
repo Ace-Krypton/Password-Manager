@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <chrono>
-#include <random>
 #include "header.hpp"
 
 /**
@@ -15,8 +14,5 @@ auto PassSearch::pass_search() -> void {
 //    std::cout << "Enter the category: ";
 //    std::cin >> category_input;
 
-    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
-    std::default_random_engine engine(seed);
-    std::uniform_int_distribution<int> distr(0, 5);
-    std::cout << distr(engine) << std::endl;
+    std::cout << sizeof(uint16_t) << std::endl;
 }
