@@ -14,5 +14,5 @@ auto PassSearch::pass_search() -> void {
 //    std::cout << "Enter the category: ";
 //    std::cin >> category_input;
 
-    std::cout << sizeof(uint16_t) << std::endl;
+    AddPassword::create_password_with_url();
 }

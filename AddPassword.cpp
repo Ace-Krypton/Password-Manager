@@ -148,7 +148,7 @@ auto AddPassword::create_password() -> void {
     }
 
     else if (hasLower && hasDigit) {
-        std::cout << "Password Strength: Middle" << std::endl;
+        std::cout << "Password Strength: Medium" << std::endl;
     }
 
     else {
@@ -169,6 +169,90 @@ auto AddPassword::create_password() -> void {
     std::cout << "Password added!" << std::endl;
 
     AddCategory::passwords[key] = user_entered_password;  //Adding passwords to the map
+}
+
+auto AddPassword::create_password_with_url() -> void {
+//        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
+//    std::default_random_engine engine(seed);  ////Seeded engine
+//    std::cout << "Do you have additional URL or Login?" << std::endl;
+//    std::cout << "\"y/N\": ";
+//    std::string input;
+//    std::cin >> input;
+//
+//    std::string login;
+//    std::string url;
+//
+//    std::uniform_int_distribution<int> tests(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+//    int test = tests(engine);
+//
+//    if (input != "N" || input != "n") {
+//        std::string wanna_continue;
+//        std::cout << "Wanna continue?: ";
+//        std::cin >> wanna_continue;
+//        std::unordered_map<int, std::map<std::string, std::string>> passwords_with_url;
+//        std::map<std::string, std::string> passwords_with_url_vec;
+//
+//        std::cout << "enter the key of the unordered map";
+//        int key_of_u_map;
+//        std::cin >> key_of_u_map;
+//        passwords_with_url[key_of_u_map];
+//
+//        while (wanna_continue == "y" || wanna_continue == "Y") {
+//            std::cout << "Enter the login: ";
+//            std::cin >> login;
+//            std::cout << "Enter the URL: ";
+//            std::cin >> url;
+//            passwords_with_url_vec[login] = url;
+//            std::cout << "Wanna continue?: ";
+//            std::cin >> wanna_continue;
+//        }
+//
+//        std::cout << "enter the key: ";
+//        int key_from_user;
+//        std::cin >> key_from_user;
+//
+//        if (passwords_with_url.contains(key_from_user)) {
+//            auto& targetMap = passwords_with_url[key_of_u_map];
+//            std::copy(passwords_with_url_vec.begin(), passwords_with_url_vec.end(), std::inserter(targetMap, targetMap.end()));
+//
+//            for (auto &a : passwords_with_url) {
+//                std::cout << "\n------------------------\n" << a.first << " : ";
+//                for (auto &b : a.second) {
+//                    std::cout << b.first << " : " << b.second;
+//                }
+//                std::cout << std::endl;
+//            }
+//        }
+//        else std::cout << "You don't have that key" << std::endl;
+//    }
+//    else std::cout << "BYE..." << std::endl;  //Garbage
+
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
+    std::default_random_engine engine(seed);  ////Seeded engine
+
+    std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+    int key = keys(engine);
+
+    std::string login_from_user;
+    std::string url_from_user;
+
+    std::cout << "Enter the Login: ";
+    std::cin >> login_from_user;
+    std::cout << "Enter the URL: ";
+    std::cin >> url_from_user;
+
+    AddCategory::passwords_with_url_map[login_from_user] = url_from_user;
+    auto &v = AddCategory::passwords_with_url[key];
+    v.insert(std::begin(AddCategory::passwords_with_url_map), std::end(AddCategory::passwords_with_url_map));
+    AddCategory::passwords_with_url_map.clear();
+
+    for (auto &a : AddCategory::passwords_with_url) {
+        std::cout << "\n------------------------\n" << a.first << " : ";
+        for (auto &b : a.second) {
+            std::cout << b.first << " : " << b.second;
+        }
+        std::cout << std::endl;
+    }
 }
 
 /**
@@ -251,7 +335,7 @@ auto AddPassword::create_password() -> void {
     int key = keys(engine);
 
     //Generators, that generates number from 0 to length()
-    //Used size_t aka unsigned int 16 which is 2 bytes, because I do not need any negative value
+    //Used uint16_t aka unsigned int 16 which is 2 bytes, because I do not need any negative value
     std::uniform_int_distribution<uint16_t> lower(0, LOWER_CASE_LETTERS.length());
     std::uniform_int_distribution<uint16_t> special(0, SPECIAL_CASE_LETTERS.length());
     std::uniform_int_distribution<uint16_t> number(0, NUMBERS.length());
@@ -311,7 +395,7 @@ auto AddPassword::create_password() -> void {
     std::string user_input;
     std::cin >> user_input;
 
-    if (user_input != "N" || user_input != "n") {  //If user enters "y", this will add generated password to the vector
+    if (user_input != "N" || user_input != "n") {  //this will add generated password to the vector
         AddCategory::passwords[key] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }
