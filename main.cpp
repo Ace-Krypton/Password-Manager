@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <random>
 #include "header.hpp"
 
 auto main() -> int {
@@ -28,27 +27,30 @@ auto main() -> int {
                 break;
 
             case 3:  //Add a password
-                while (true)
-                {
+                while (true) {
                     AddPassword::add_password_menu();
                     int user_input_for_add_pass;
                     std::cout << "\n> ";
                     std::cin >> user_input_for_add_pass;
-                    switch (user_input_for_add_pass)
-                    {
-                        case 1:  //Create password
+                    switch (user_input_for_add_pass) {
+                        case 1:  //Create password(s)
                             AddPassword::create_password();
                             break;
 
-                        case 2:  //Generate password
+                        case 2:  //Generate password(s)
                             AddPassword::generate_password();
                             break;
 
-                        case 3:  //Print password
-                            AddPassword::print_password(AddCategory::passwords);
+                        case 3:  //Generate password(s) with url
+                            AddPassword::create_password_with_url();
                             break;
 
-                        case 4:  //Add password
+                        case 4:  //Print password(s)
+                            AddPassword::print_password(AddCategory::passwords);
+                            AddPassword::print_password_with_url(AddCategory::passwords_with_url);
+                            break;
+
+                        case 5:  //Add password
                             AddPassword::add_password();
                             break;
 

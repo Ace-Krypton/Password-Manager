@@ -22,6 +22,7 @@ public:
 
 class AddPassword {
 public:
+    static auto print_password_with_url(const std::unordered_map<int, std::map<std::string, std::string>> &passwords_with_url) -> void;
     static auto print_password(const std::map<int, std::string>& passwords) -> void;
     static auto create_password_with_url() -> void;
     static auto create_password() -> void;

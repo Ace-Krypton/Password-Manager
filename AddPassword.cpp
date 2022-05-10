@@ -14,7 +14,7 @@
  *      6. Add custom key creating algorithm  [FAIL]
  *      7. Change rand() to Random library  [X]
  *      8. Created passwords safety or uniqueness info for user  [X]
- *      9. Each password could require additional login or URL  [NOT YET]
+ *      9. Each password could require additional login or URL  [X]
  */
 
 /**
@@ -49,7 +49,7 @@ auto AddPassword::add_password() -> void {
             return;
         }
 
-        for (auto &password : AddCategory::passwords) {  //Printing passwords
+        for (const auto &password : AddCategory::passwords) {  //Printing passwords
             std::cout << password.first << ": " << password.second << std::endl;
         }
 
@@ -171,88 +171,29 @@ auto AddPassword::create_password() -> void {
     AddCategory::passwords[key] = user_entered_password;  //Adding passwords to the map
 }
 
+/**
+ * Creates password(s) with url
+ * @return void
+ */
 auto AddPassword::create_password_with_url() -> void {
-//        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
-//    std::default_random_engine engine(seed);  ////Seeded engine
-//    std::cout << "Do you have additional URL or Login?" << std::endl;
-//    std::cout << "\"y/N\": ";
-//    std::string input;
-//    std::cin >> input;
-//
-//    std::string login;
-//    std::string url;
-//
-//    std::uniform_int_distribution<int> tests(0, INT16_MAX);  //Generates value between 0 and 32767 for key
-//    int test = tests(engine);
-//
-//    if (input != "N" || input != "n") {
-//        std::string wanna_continue;
-//        std::cout << "Wanna continue?: ";
-//        std::cin >> wanna_continue;
-//        std::unordered_map<int, std::map<std::string, std::string>> passwords_with_url;
-//        std::map<std::string, std::string> passwords_with_url_vec;
-//
-//        std::cout << "enter the key of the unordered map";
-//        int key_of_u_map;
-//        std::cin >> key_of_u_map;
-//        passwords_with_url[key_of_u_map];
-//
-//        while (wanna_continue == "y" || wanna_continue == "Y") {
-//            std::cout << "Enter the login: ";
-//            std::cin >> login;
-//            std::cout << "Enter the URL: ";
-//            std::cin >> url;
-//            passwords_with_url_vec[login] = url;
-//            std::cout << "Wanna continue?: ";
-//            std::cin >> wanna_continue;
-//        }
-//
-//        std::cout << "enter the key: ";
-//        int key_from_user;
-//        std::cin >> key_from_user;
-//
-//        if (passwords_with_url.contains(key_from_user)) {
-//            auto& targetMap = passwords_with_url[key_of_u_map];
-//            std::copy(passwords_with_url_vec.begin(), passwords_with_url_vec.end(), std::inserter(targetMap, targetMap.end()));
-//
-//            for (auto &a : passwords_with_url) {
-//                std::cout << "\n------------------------\n" << a.first << " : ";
-//                for (auto &b : a.second) {
-//                    std::cout << b.first << " : " << b.second;
-//                }
-//                std::cout << std::endl;
-//            }
-//        }
-//        else std::cout << "You don't have that key" << std::endl;
-//    }
-//    else std::cout << "BYE..." << std::endl;  //Garbage
-
     unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
     std::default_random_engine engine(seed);  ////Seeded engine
 
     std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
     int key = keys(engine);
 
-    std::string login_from_user;
+    std::string password_from_user;
     std::string url_from_user;
 
-    std::cout << "Enter the Login: ";
-    std::cin >> login_from_user;
+    std::cout << "Enter the Password: ";
+    std::cin >> password_from_user;
     std::cout << "Enter the URL: ";
     std::cin >> url_from_user;
 
-    AddCategory::passwords_with_url_map[login_from_user] = url_from_user;
+    AddCategory::passwords_with_url_map[url_from_user] = password_from_user;
     auto &v = AddCategory::passwords_with_url[key];
     v.insert(std::begin(AddCategory::passwords_with_url_map), std::end(AddCategory::passwords_with_url_map));
     AddCategory::passwords_with_url_map.clear();
-
-    for (auto &a : AddCategory::passwords_with_url) {
-        std::cout << "\n------------------------\n" << a.first << " : ";
-        for (auto &b : a.second) {
-            std::cout << b.first << " : " << b.second;
-        }
-        std::cout << std::endl;
-    }
 }
 
 /**
@@ -410,6 +351,21 @@ auto AddPassword::print_password(const std::map<int, std::string> &passwords) ->
      }
 }
 
+auto AddPassword::print_password_with_url(const std::unordered_map<int, std::map<std::string, std::string>> &passwords_with_url) -> void {
+    std::cout << "\n\t\t\t\t-Passwords with URL-\n" << std::endl;
+
+    if (AddCategory::passwords_with_url.empty()) {
+        std::cout << "You don't have any passwords with URL yet, create one if you want" << std::endl;
+    }
+
+    for (const auto &password_with_url : AddCategory::passwords_with_url) {
+        std::cout << password_with_url.first << " : ";
+        for (const auto &url_map : password_with_url.second) {
+            std::cout << url_map.first << " : " << url_map.second << std::endl;
+        }
+    }
+}
+
 /**
  * Menu of add password option
  * @return void
@@ -418,8 +374,9 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "[1] Create password" << std::endl;
     std::cout << "[2] Generate password" << std::endl;
-    std::cout << "[3] Print passwords" << std::endl;
-    std::cout << "[4] Add password to the category\n" << std::endl;
+    std::cout << "[3] Create password with url" << std::endl;
+    std::cout << "[4] Print passwords" << std::endl;
+    std::cout << "[5] Add password to the category\n" << std::endl;
     std::cout << "[0] Back" << std::endl;
 }
 

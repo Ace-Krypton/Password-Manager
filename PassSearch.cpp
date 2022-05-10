@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <chrono>
 #include "header.hpp"
 
 /**
@@ -11,8 +10,6 @@ auto PassSearch::pass_search() -> void {
     std::string category_input;  //User input
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "        Password search will return passwords matching the specified criteria\n" << std::endl;
-//    std::cout << "Enter the category: ";
-//    std::cin >> category_input;
-
-    AddPassword::create_password_with_url();
+    std::cout << "Enter the category: ";
+    std::cin >> category_input;
 }
