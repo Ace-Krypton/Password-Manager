@@ -193,6 +193,7 @@ auto AddPassword::create_password_with_url() -> void {
     AddCategory::passwords_with_url_map[url_from_user] = password_from_user;
     auto &v = AddCategory::passwords_with_url[key];
     v.insert(std::begin(AddCategory::passwords_with_url_map), std::end(AddCategory::passwords_with_url_map));
+    std::cout << "Password added successfully!" << std::endl;
     AddCategory::passwords_with_url_map.clear();
 }
 
@@ -344,7 +345,13 @@ auto AddPassword::create_password_with_url() -> void {
 
 auto AddPassword::print_password(const std::map<int, std::string> &passwords) -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
-    std::cout << "\t\t\t\tThese are the passwords\n" << std::endl;
+
+    if (AddCategory::passwords.empty()) {
+        std::cout << "You don't have any passwords yet, create one if you want" << std::endl;
+        return;
+    }
+
+    std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
     for (const auto& pass : passwords) {  //Printing the map
          std::cout << "[*] " << pass.first << " : " << pass.second << std::endl;
@@ -356,12 +363,13 @@ auto AddPassword::print_password_with_url(const std::unordered_map<int, std::map
 
     if (AddCategory::passwords_with_url.empty()) {
         std::cout << "You don't have any passwords with URL yet, create one if you want" << std::endl;
+        return;
     }
 
     for (const auto &password_with_url : AddCategory::passwords_with_url) {
-        std::cout << password_with_url.first << " : ";
+        std::cout << "[*] " << password_with_url.first << " : ";
         for (const auto &url_map : password_with_url.second) {
-            std::cout << url_map.first << " : " << url_map.second << std::endl;
+            std::cout << "URL: " << url_map.first << " : " << "Password:" << url_map.second << std::endl;
         }
     }
 }
