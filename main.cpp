@@ -43,11 +43,15 @@ auto main() -> int {
                             break;
 
                         case 4:  //Print password(s)
-                            AddPassword::print_password(AddCategory::passwords);
-                            AddPassword::print_password_with_url(AddCategory::passwords_with_url);
+                            AddPassword::print_password();
+                            AddPassword::print_password_with_url();
                             break;
 
-                        case 5:  //Add password
+                        case 5:  //Print categories with passwords
+                            AddPassword::print_categories_with_passwords();
+                            break;
+
+                        case 6:  //Add password
                             AddPassword::add_password();
                             break;
 

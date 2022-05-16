@@ -78,19 +78,34 @@ auto AddPassword::add_password() -> void {
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
         std::cout << "Password added!" << std::endl;
         matched_passwords.clear();  //Emptying our vector after adding
-
-        for (auto &category : AddCategory::categories) {  //Printing categories
-            auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
-            std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
-            for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
-                std::cout << "\n" << "[*] " << matched;
-            }
-            if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
-            std::cout << "\n------------------------" << std::endl;
-        }
+        print_categories_with_passwords();  //Printing our categories with passwords
     }
 
     else std::cout << "[-] Category name does not exist! Try again" << std::endl;
+}
+
+/**
+ * Prints categories with passwords
+ * @return void
+ */
+auto AddPassword::print_categories_with_passwords() -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
+    //If categories is empty print appropriate info and return
+    if (AddCategory::categories.empty()) {
+        std::cout << "[-] You don't have any categories yet please, create one" << std::endl;
+        return;
+    }
+
+    //Else print categories and passwords if they have any
+    for (auto &category : AddCategory::categories) {  //Printing categories
+        auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
+        std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
+        for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
+            std::cout << "\n" << "[*] " << matched;
+        }
+        if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
+        std::cout << "\n------------------------" << std::endl;
+    }
 }
 
 /**
@@ -348,9 +363,8 @@ auto AddPassword::create_password_with_url() -> void {
 
 /**
  * Prints our passwords
- * @param passwords
  */
-auto AddPassword::print_password(const std::map<int, std::string> &passwords) -> void {
+auto AddPassword::print_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
@@ -359,16 +373,15 @@ auto AddPassword::print_password(const std::map<int, std::string> &passwords) ->
         return;
     }
 
-    for (const auto& pass : passwords) {  //Printing the map
+    for (const auto& pass : AddCategory::passwords) {  //Printing the map
          std::cout << "[*] " << pass.first << " : " << pass.second << std::endl;
      }
 }
 
 /**
  * Prints passwords with url
- * @param passwords_with_url
  */
-auto AddPassword::print_password_with_url(const std::unordered_map<int, std::map<std::string, std::string>> &passwords_with_url) -> void {
+auto AddPassword::print_password_with_url() -> void {
     std::cout << "\n\t\t\t\t    -Passwords with URL-\n" << std::endl;
 
     if (AddCategory::passwords_with_url.empty()) {
@@ -393,8 +406,9 @@ auto AddPassword::add_password_menu() -> void {
     std::cout << "[1] Create password" << std::endl;
     std::cout << "[2] Generate password" << std::endl;
     std::cout << "[3] Create password with url" << std::endl;
-    std::cout << "[4] Print passwords" << std::endl;
-    std::cout << "[5] Add password to the category\n" << std::endl;
+    std::cout << "[4] Print password's list" << std::endl;
+    std::cout << "[5] Print categories with passwords" << std::endl;
+    std::cout << "[6] Add password to the category\n" << std::endl;
     std::cout << "[0] Back" << std::endl;
 }
 
