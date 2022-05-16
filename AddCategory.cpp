@@ -3,7 +3,7 @@
 #include "header.hpp"
 
 /**
- * Add Category
+ * Adds a category
  * @return void
  */
 auto AddCategory::add_category() -> void {

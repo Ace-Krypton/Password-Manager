@@ -73,6 +73,7 @@ auto main() -> int {
                 break;
 
             case 7:  //Remove a category
+                RemoveCategory::remove_category();
                 break;
 
             default:
