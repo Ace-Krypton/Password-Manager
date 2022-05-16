@@ -9,7 +9,7 @@ auto RemoveCategory::remove_category() -> void {
     std::string removal_input;  //User input
 
     if (AddCategory::categories.empty()) {  //If key is empty, then print info
-        std::cout << "You don't have any categories yet. Please, create one\n" << std::endl;
+        std::cout << "[-] You don't have any categories yet. Please, create one\n" << std::endl;
         return;
     }
 
@@ -21,6 +21,11 @@ auto RemoveCategory::remove_category() -> void {
     std::cout << "\nEnter the category: ";
     std::cin >> removal_input;
 
-    AddCategory::categories.erase(removal_input);
-    std::cout << removal_input << " successfully removed!" << std::endl;
+    //If user entered category is present do this
+    if (AddCategory::categories.contains(removal_input)) {
+        AddCategory::categories.erase(removal_input);
+        std::cout << removal_input << " successfully removed!" << std::endl;
+    }
+
+    else std::cout << "[-] Category name does not exist! Try again\n" << std::endl;
 }

@@ -26,7 +26,7 @@ auto AddPassword::add_password() -> void {
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
     if (AddCategory::categories.empty()) {  //If key is empty, then print info
-        std::cout << "You don't have any categories yet please, create one" << std::endl;
+        std::cout << "[-] You don't have any categories yet please, create one" << std::endl;
         return;
     }
 
@@ -45,7 +45,7 @@ auto AddPassword::add_password() -> void {
         std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
         if (AddCategory::passwords.empty()) {
-            std::cout << "You don't have any passwords yet please, create one" << std::endl;
+            std::cout << "[-] You don't have any passwords yet please, create one" << std::endl;
             return;
         }
 
@@ -62,7 +62,7 @@ auto AddPassword::add_password() -> void {
             auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
 
             if (it->second.empty()) {  //If the value is empty it returns
-                std::cout << "You don't have any password with that key!" << std::endl;
+                std::cout << "[-] You don't have any password with that key!" << std::endl;
             }
 
             else {
@@ -90,7 +90,7 @@ auto AddPassword::add_password() -> void {
         }
     }
 
-    else std::cout << "Category name does not exist! Try again" << std::endl;
+    else std::cout << "[-] Category name does not exist! Try again" << std::endl;
 }
 
 /**
@@ -117,7 +117,7 @@ auto AddPassword::create_password() -> void {
 
     //Checking the length of the password
     while (user_entered_password.length() < 4) {
-        std::cout << "Your password must be the minimum length of 4" << std::endl;
+        std::cout << "[-] Your password must be the minimum length of 4" << std::endl;
         std::cout << "Please enter the password:";
         std::cin >> user_entered_password;
     }
@@ -232,7 +232,7 @@ auto AddPassword::create_password_with_url() -> void {
     std::cin >> size;
 
     while (size < 4) {  //Password should not be less than 4
-        std::cout << "Your password must be the minimum length of 4" << std::endl;
+        std::cout << "[-] Your password must be the minimum length of 4" << std::endl;
         std::cout << "Please enter the size of the password: ";
         std::cin >> size;
     }
@@ -265,7 +265,7 @@ auto AddPassword::create_password_with_url() -> void {
                 break;
 
             default:
-                std::cout << "Invalid command, Please try again" << std::endl;
+                std::cout << "[-] Invalid command, Please try again" << std::endl;
         }
     }
 
@@ -355,7 +355,7 @@ auto AddPassword::print_password(const std::map<int, std::string> &passwords) ->
     std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
     if (AddCategory::passwords.empty()) {
-        std::cout << "You don't have any passwords yet, create one if you want" << std::endl;
+        std::cout << "[-] You don't have any passwords yet, create one if you want" << std::endl;
         return;
     }
 
@@ -369,10 +369,10 @@ auto AddPassword::print_password(const std::map<int, std::string> &passwords) ->
  * @param passwords_with_url
  */
 auto AddPassword::print_password_with_url(const std::unordered_map<int, std::map<std::string, std::string>> &passwords_with_url) -> void {
-    std::cout << "\n\t\t\t\t  -Passwords with URL-\n" << std::endl;
+    std::cout << "\n\t\t\t\t    -Passwords with URL-\n" << std::endl;
 
     if (AddCategory::passwords_with_url.empty()) {
-        std::cout << "You don't have any passwords with URL yet, create one if you want" << std::endl;
+        std::cout << "[-] You don't have any passwords with URL yet, create one if you want" << std::endl;
         return;
     }
 

@@ -14,11 +14,6 @@ auto main() -> int {
         std::cin >> user_input_int;
 
         switch (user_input_int) {  //Main switch
-            case 0:  //Exit
-                std::cout << "Exiting..." << std::endl;
-                main_loop = false;
-                break;
-
             case 1:  //Search for passwords
                 PassSearch::pass_search();
                 break;
@@ -29,9 +24,11 @@ auto main() -> int {
             case 3:  //Add a password
                 while (true) {
                     AddPassword::add_password_menu();
+
                     int user_input_for_add_pass;
                     std::cout << "\n> ";
                     std::cin >> user_input_for_add_pass;
+
                     switch (user_input_for_add_pass) {
                         case 1:  //Create password(s)
                             AddPassword::create_password();
@@ -58,7 +55,7 @@ auto main() -> int {
                             goto MAINLOOP;
 
                         default:
-                            std::cout << "Invalid command, Please try again" << std::endl;
+                            std::cout << "[-] Invalid command, Please try again" << std::endl;
                     }
                 }
 
@@ -66,7 +63,26 @@ auto main() -> int {
                 break;
 
             case 5:  //Remove a password
-                break;
+            while (true) {
+                RemovePassword::remove_password_menu();
+                int user_input_for_remove_pass;
+                std::cout << "\n> ";
+                std::cin >> user_input_for_remove_pass;
+
+                switch (user_input_for_remove_pass) {
+                    case 1:  //Remove password(s) from password
+                        RemovePassword::remove_password_from_list();
+
+                    case 2:  //Remove password(s) from categories
+                        RemovePassword::remove_password_from_category();
+
+                    case 0:  //Back
+                        goto MAINLOOP;
+
+                    default:
+                        std::cout << "[-] Invalid command, Please try again" << std::endl;
+                }
+            }
 
             case 6:  //Add a category
                 AddCategory::add_category();
@@ -76,8 +92,13 @@ auto main() -> int {
                 RemoveCategory::remove_category();
                 break;
 
+            case 0:  //Exit
+                std::cout << "Exiting..." << std::endl;
+                main_loop = false;
+                break;
+
             default:
-                std::cout << "Invalid command, Please try again" << std::endl;
+                std::cout << "[-] Invalid command, Please try again" << std::endl;
         }
     }
 

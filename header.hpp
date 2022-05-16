@@ -35,3 +35,10 @@ class RemoveCategory {
 public:
     static auto remove_category() -> void;
 };
+
+class RemovePassword {
+public:
+    static auto remove_password_from_list() -> void;
+    static auto remove_password_from_category() -> void;
+    static auto remove_password_menu() -> void;
+};
