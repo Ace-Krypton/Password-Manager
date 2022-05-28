@@ -13,8 +13,8 @@ public:
 class AddCategory {
 public:
     inline static std::map<int, std::string> passwords {};
-    inline static std::unordered_map<int, std::map<std::string, std::string>> passwords_with_url;
-    inline static std::map<std::string, std::string> passwords_with_url_map;
+    inline static std::unordered_map<int, std::map<std::string, std::string>> passwords_with_url {};
+    inline static std::map<std::string, std::string> passwords_with_url_map {};
     inline static std::unordered_map<std::string, std::vector<std::string>> categories {};
     static auto add_category() -> void;
 };

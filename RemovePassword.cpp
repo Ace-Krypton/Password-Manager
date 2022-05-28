@@ -2,6 +2,10 @@
 #include <vector>
 #include "header.hpp"
 
+/**
+ * Removes password from password list or URL
+ * @return void
+ */
 auto RemovePassword::remove_password_from_list() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "Removes selected password(s) from password list" << std::endl;
@@ -11,40 +15,44 @@ auto RemovePassword::remove_password_from_list() -> void {
 
     int user_input_for_rem_pass;
 
-    std::vector<int> removal;
+    std::vector<int> removal;  //Removal list that contains keys that will be removed from lists
 
-    bool loopBool = true;
+    bool loop = true;
 
-    while (loopBool) {
+    while (loop) {
         std::cout << "\n> ";
         std::cin >> user_input_for_rem_pass;
-        if (user_input_for_rem_pass == -1) {
-            loopBool = false;
+
+        if (user_input_for_rem_pass == -1) {  //If the user enter something different from -1
+            loop = false;
         }
 
-        if (user_input_for_rem_pass != -1) {
-            if (AddCategory::passwords.contains(user_input_for_rem_pass) || AddCategory::passwords_with_url.contains(user_input_for_rem_pass)) {
-                auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
-                auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
+        else {
+            if (user_input_for_rem_pass != -1) {
+                //It checks if the lists contains that password
+                if (AddCategory::passwords.contains(user_input_for_rem_pass) || AddCategory::passwords_with_url.contains(user_input_for_rem_pass)) {
+                    //Finds the user entered passwords from lists
+                    auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
+                    auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
 
-                if (!(it_pass->second.empty())) {
-                    removal.emplace_back(it_pass->first);
-                    std::cout << "Password added to removal list" << std::endl;
-                }
+                    //After making sure they are not empty
+                    //It pushes the corresponding key to the list
+                    if (!(it_pass->second.empty())) {
+                        removal.emplace_back(it_pass->first);
+                        std::cout << "Password added to removal list" << std::endl;
+                    }
 
-                else if (!(it_url->second.empty())) {
-                    removal.emplace_back(it_url->first);
-                    std::cout << "Password added to removal list" << std::endl;
+                    else if (!(it_url->second.empty())) {
+                        removal.emplace_back(it_url->first);
+                        std::cout << "Password added to removal list" << std::endl;
+                    }
                 }
-
-                else {
-                    std::cout << "[-] You don't have any password with that key!" << std::endl;
-                }
+                else std::cout << "[-] You don't have any password with that key!" << std::endl;
             }
-            else std::cout << "[-] You don't have any password with that key!" << std::endl;
         }
     }
 
+    //If removal size is bigger than 2, it requires a user confirmation
     if (removal.size() > 2) {
         std::cout << "Confirm that you want to delete that passwords" << std::endl;
         std::cout << "\"y/N\": ";
@@ -56,6 +64,7 @@ auto RemovePassword::remove_password_from_list() -> void {
             return;
         }
 
+        //Removes the keys from the passwords and urls
         else {
             for (int key : removal) {
                 AddCategory::passwords.erase(key);
@@ -63,23 +72,35 @@ auto RemovePassword::remove_password_from_list() -> void {
             }
 
             std::cout << "Successfully deleted password(s)!" << std::endl;
+            return;
         }
     }
 
+    //If it is lesser than 2 it removes keys without confirmation
     else {
         for (int key : removal) {
             AddCategory::passwords.erase(key);
             AddCategory::passwords_with_url.erase(key);
+            std::cout << "Successfully deleted password(s)!" << std::endl;
+            return;
         }
     }
 }
 
+/**
+ * Removes passwords from categories
+ * @return void
+ */
 auto RemovePassword::remove_password_from_category() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "Removes selected password(s) from categories" << std::endl;
 
 }
 
+/**
+ * Menu for password removal option
+ * @return void
+ */
 auto RemovePassword::remove_password_menu() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "[1] Remove password(s) from password list" << std::endl;
