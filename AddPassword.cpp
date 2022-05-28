@@ -76,7 +76,7 @@ auto AddPassword::add_password() -> void {
         auto &v = AddCategory::categories[category_name];
         //From end of the previous value to the end of the matched_passwords vector
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
-        std::cout << "Password added!" << std::endl;
+        std::cout << "Password(s) added!" << std::endl;
         matched_passwords.clear();  //Emptying our vector after adding
         print_categories_with_passwords();  //Printing our categories with passwords
     }

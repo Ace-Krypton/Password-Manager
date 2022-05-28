@@ -12,6 +12,4 @@ auto PassSearch::pass_search() -> void {
     std::cout << "        Password search will return passwords matching the specified criteria\n" << std::endl;
     std::cout << "Enter the category: ";
     std::cin >> category_input;
-
-    
 }
