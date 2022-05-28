@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "header.hpp"
 
 /**
@@ -13,27 +14,26 @@ auto RemovePassword::remove_password_from_list() -> void {
     AddPassword::print_password();  //Prints our passwords
     AddPassword::print_password_with_url();  //Prints our passwords with URL
 
-    int user_input_for_rem_pass;
+    bool loop = true;
+    int user_input;
 
     std::vector<int> removal;  //Removal list that contains keys that will be removed from lists
 
-    bool loop = true;
-
     while (loop) {
         std::cout << "\n> ";
-        std::cin >> user_input_for_rem_pass;
+        std::cin >> user_input;
 
-        if (user_input_for_rem_pass == -1) {  //If the user enter something different from -1
+        if (user_input == -1) {  //If the user enter something different from -1
             loop = false;
         }
 
         else {
-            if (user_input_for_rem_pass != -1) {
+            if (user_input != -1) {
                 //It checks if the lists contains that password
-                if (AddCategory::passwords.contains(user_input_for_rem_pass) || AddCategory::passwords_with_url.contains(user_input_for_rem_pass)) {
+                if (AddCategory::passwords.contains(user_input) || AddCategory::passwords_with_url.contains(user_input)) {
                     //Finds the user entered passwords from lists
-                    auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
-                    auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
+                    auto it_pass = AddCategory::passwords.find(user_input);
+                    auto it_url = AddCategory::passwords_with_url.find(user_input);
 
                     //After making sure they are not empty
                     //It pushes the corresponding key to the list
@@ -95,6 +95,46 @@ auto RemovePassword::remove_password_from_category() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "Removes selected password(s) from categories" << std::endl;
 
+    AddPassword::print_categories_with_passwords();  //Prints categories with passwords
+
+    std::string user_input;
+    std::string user_input_for_password;
+    bool loop = true;
+
+    std::vector<std::string> removal;
+
+    while (loop) {
+        std::cout << "\n> ";
+        std::cin >> user_input;
+
+        if (user_input == "quit") {
+            loop = false;
+        }
+
+        else {
+            if (user_input != "quit") {
+                if (AddCategory::categories.contains(user_input)) {
+                    std::cout << "[*] " << user_input << " selected!" << std::endl;
+                    for (auto const &category : AddCategory::categories) {
+                        if (category.first == user_input) {
+                            for (auto const &password : category.second) {
+                                std::cout << "\n" << "[*] " << password;
+                            }
+                            std::cout << "\n> ";
+                            std::cin >> user_input_for_password;
+
+                            auto it = std::find(category.second.begin(), category.second.end(), user_input_for_password);
+
+                            if (it != category.second.end()) {  //category.second.end() means the element was not found
+                                category.second.erase(it);
+                            }
+                        }
+                    }
+                }
+                else std::cout << "[-] You don't have any category with that password!" << std::endl;
+            }
+        }
+    }
 }
 
 /**

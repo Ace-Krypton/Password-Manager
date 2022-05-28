@@ -31,7 +31,7 @@ auto AddPassword::add_password() -> void {
     }
 
     std::cout << "\t\t\t\tPlease choose a category\n" << std::endl;
-    for (auto &category : AddCategory::categories) {  //Prints out categories
+    for (auto const &category : AddCategory::categories) {  //Prints out categories
         std::cout << "[+] " << category.first << std::endl;
     }
 
@@ -100,7 +100,7 @@ auto AddPassword::print_categories_with_passwords() -> void {
     for (auto &category : AddCategory::categories) {  //Printing categories
         auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
         std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
-        for (auto &matched : category.second) {  //Printing the values (vector) of unordered_map
+        for (auto const &matched : category.second) {  //Printing the values (vector) of unordered_map
             std::cout << "\n" << "[*] " << matched;
         }
         if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
@@ -110,6 +110,7 @@ auto AddPassword::print_categories_with_passwords() -> void {
 
 /**
  * Password created by user
+ * @return void
  */
 auto AddPassword::create_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
