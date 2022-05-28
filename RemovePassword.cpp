@@ -15,7 +15,7 @@ auto RemovePassword::remove_password_from_list() -> void {
 
     bool loopBool = true;
 
-    while (loopBool) {  //user_input_for_rem_pass != -1
+    while (loopBool) {
         std::cout << "\n> ";
         std::cin >> user_input_for_rem_pass;
         if (user_input_for_rem_pass == -1) {
@@ -26,6 +26,7 @@ auto RemovePassword::remove_password_from_list() -> void {
             if (AddCategory::passwords.contains(user_input_for_rem_pass) || AddCategory::passwords_with_url.contains(user_input_for_rem_pass)) {
                 auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
                 auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
+
                 if (!(it_pass->second.empty())) {
                     removal.emplace_back(it_pass->first);
                     std::cout << "Password added to removal list" << std::endl;
