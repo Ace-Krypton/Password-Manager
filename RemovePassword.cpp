@@ -23,7 +23,8 @@ auto RemovePassword::remove_password_from_list() -> void {
         std::cout << "\n> ";
         std::cin >> user_input;
 
-        if (user_input == -1) {  //If the user enter something different from -1
+        //If the user enter something different from -1
+        if (user_input == -1) {
             loop = false;
         }
 
@@ -95,38 +96,48 @@ auto RemovePassword::remove_password_from_category() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "Removes selected password(s) from categories" << std::endl;
 
-    AddPassword::print_categories_with_passwords();  //Prints categories with passwords
-
     std::string user_input;
     std::string user_input_for_password;
     bool loop = true;
 
-    std::vector<std::string> removal;
+    std::vector<std::string> removal;  //Removal list that contains values that will be removed from lists
 
+    //Label (will be useful in next step)
+    LOOP:
     while (loop) {
+        AddPassword::print_categories_with_passwords();  //Prints categories with passwords
         std::cout << "\n> ";
         std::cin >> user_input;
 
+        //If user enters "quit" it exits from loop
         if (user_input == "quit") {
             loop = false;
         }
 
         else {
             if (user_input != "quit") {
+                //Checks if category contains user entered category
                 if (AddCategory::categories.contains(user_input)) {
                     std::cout << "[*] " << user_input << " selected!" << std::endl;
-                    for (auto const &category : AddCategory::categories) {
+                    //Going through categories and printing the user entered category with its passwords
+                    //Not const because, we will modify it
+                    for (auto &category : AddCategory::categories) {
                         if (category.first == user_input) {
+                            //Printing the values(passwords)
                             for (auto const &password : category.second) {
                                 std::cout << "\n" << "[*] " << password;
                             }
                             std::cout << "\n> ";
                             std::cin >> user_input_for_password;
 
+                            //Finding the iterator position of user entered password
                             auto it = std::find(category.second.begin(), category.second.end(), user_input_for_password);
 
-                            if (it != category.second.end()) {  //category.second.end() means the element was not found
-                                category.second.erase(it);
+                            //category.second.end() means the element was not found
+                            if (it != category.second.end()) {
+                                category.second.erase(it);  //Deleting the element
+                                std::cout << "Deleted!" << std::endl;
+                                goto LOOP;  //After deleting go to the loop
                             }
                         }
                     }

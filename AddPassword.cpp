@@ -97,10 +97,12 @@ auto AddPassword::print_categories_with_passwords() -> void {
     }
 
     //Else print categories and passwords if they have any
-    for (auto &category : AddCategory::categories) {  //Printing categories
+    //Printing categories
+    for (auto &category : AddCategory::categories) {
         auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
         std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
-        for (auto const &matched : category.second) {  //Printing the values (vector) of unordered_map
+        //Printing the values (vector) of unordered_map
+        for (auto const &matched : category.second) {
             std::cout << "\n" << "[*] " << matched;
         }
         if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
@@ -346,7 +348,9 @@ auto AddPassword::create_password_with_url() -> void {
     }
 
     std::string password_as_string;  //Converting char password[] to std::string
-    for (int i = 0; i < size; i++) {  //Adding elements to our std::string
+
+    //Adding elements to our std::string
+    for (int i = 0; i < size; i++) {
         password_as_string.push_back(password[i]);
     }
 
@@ -356,7 +360,8 @@ auto AddPassword::create_password_with_url() -> void {
     std::string user_input;
     std::cin >> user_input;
 
-    if (user_input != "N" || user_input != "n") {  //this will add generated password to the vector
+    //this will add generated password to the vector
+    if (user_input != "N" || user_input != "n") {
         AddCategory::passwords[key] = password_as_string;
         std::cout << "Password added successfully!" << std::endl;
     }

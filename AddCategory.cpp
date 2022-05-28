@@ -13,13 +13,14 @@ auto AddCategory::add_category() -> void {
     std::cout << "      Adds a new category to be used with creating new passwords\n"
                  "                      For stop adding type \"quit\"\n" << std::endl;
 
-    while (category_input != "quit") {  //If user input different from quit, it adds
+    //If user input different from quit, it adds
+    while (category_input != "quit") {
         std::cout << "Enter the category name: ";
         std::cin >> category_input;
         categories[category_input];  //Adding categories to the map
         std::cout << std::endl;
     }
 
-    categories.erase("quit");  //Somehow, it adds "quit" to the list I don't know why
+    categories.erase("quit");  //It adds "quit" also that's why I did that
     std::cout << "Category(s) added successfully!\n" << std::endl;
 }

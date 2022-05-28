@@ -8,13 +8,16 @@
 auto RemoveCategory::remove_category() -> void {
     std::string removal_input;  //User input
 
-    if (AddCategory::categories.empty()) {  //If key is empty, then print info
+    //If key is empty, then print info
+    if (AddCategory::categories.empty()) {
         std::cout << "[-] You don't have any categories yet. Please, create one\n" << std::endl;
         return;
     }
 
     std::cout << "\t\t\t\tPlease choose a category\n" << std::endl;
-    for (auto &category : AddCategory::categories) {  //Prints out categories
+
+    //Prints out categories
+    for (auto &category : AddCategory::categories) {
         std::cout << "[+] " << category.first << std::endl;
     }
 
