@@ -23,14 +23,9 @@ auto RemovePassword::remove_password_from_list() -> void {
         }
 
         if (user_input_for_rem_pass != -1) {
-            auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
-            auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
-
-            if (it_pass->second.empty() && it_url->second.empty()) {
-                std::cout << "[-] You don't have any password with that key!" << std::endl;
-            }
-
-            else {
+            if (AddCategory::passwords.contains(user_input_for_rem_pass) || AddCategory::passwords_with_url.contains(user_input_for_rem_pass)) {
+                auto it_pass = AddCategory::passwords.find(user_input_for_rem_pass);
+                auto it_url = AddCategory::passwords_with_url.find(user_input_for_rem_pass);
                 if (!(it_pass->second.empty())) {
                     removal.emplace_back(it_pass->first);
                     std::cout << "Password added to removal list" << std::endl;
@@ -45,6 +40,7 @@ auto RemovePassword::remove_password_from_list() -> void {
                     std::cout << "[-] You don't have any password with that key!" << std::endl;
                 }
             }
+            else std::cout << "[-] You don't have any password with that key!" << std::endl;
         }
     }
 
