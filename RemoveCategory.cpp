@@ -6,7 +6,7 @@
  * @return void
  */
 auto RemoveCategory::remove_category() -> void {
-    std::string removal_input;  //User input
+    std::string removal_input;
 
     //If key is empty, then print info
     if (AddCategory::categories.empty()) {

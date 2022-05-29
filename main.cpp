@@ -3,13 +3,13 @@
 #include "header.hpp"
 
 auto main() -> int {
-    std::string user_input_str;  //User input (string)
-    int user_input_int;  //User input (integer)
-    bool main_loop = true;  //Boolean for main loop
+    std::string user_input_str;
+    int user_input_int;
+    bool main_loop = true;
 
     MAINLOOP:
-    while (main_loop) {  //Main loop
-        main_menu();  //Calling main_menu function for printing the menu
+    while (main_loop) {
+        main_menu();
         std::cout << "\n> ";
         std::cin >> user_input_int;
 

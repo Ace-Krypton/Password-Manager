@@ -25,13 +25,16 @@ auto AddPassword::add_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                      Adds a new password to the encrypted file\n" << std::endl;
 
-    if (AddCategory::categories.empty()) {  //If key is empty, then print info
+    //If key is empty, then print info
+    if (AddCategory::categories.empty()) {
         std::cout << "[-] You don't have any categories yet please, create one" << std::endl;
         return;
     }
 
     std::cout << "\t\t\t\tPlease choose a category\n" << std::endl;
-    for (auto const &category : AddCategory::categories) {  //Prints out categories
+
+    //Prints out categories
+    for (auto const &category : AddCategory::categories) {
         std::cout << "[+] " << category.first << std::endl;
     }
 
@@ -39,9 +42,11 @@ auto AddPassword::add_password() -> void {
     std::cout << "\n" << "> ";
     std::cin >> category_name;
 
-    std::vector<std::string> matched_passwords;  //Vector that stores our matched passwords
+    //Vector that stores our matched passwords
+    std::vector<std::string> matched_passwords;
 
-    if (AddCategory::categories.contains(category_name)) {  //If categories contains user input
+    //If categories contains user input
+    if (AddCategory::categories.contains(category_name)) {
         std::cout << "\t\t\t\t\t-Passwords-\n" << std::endl;
 
         if (AddCategory::passwords.empty()) {
@@ -49,26 +54,36 @@ auto AddPassword::add_password() -> void {
             return;
         }
 
-        for (const auto &password : AddCategory::passwords) {  //Printing passwords
+        //Printing passwords
+        for (const auto &password : AddCategory::passwords) {
             std::cout << password.first << ": " << password.second << std::endl;
         }
 
         std::cout << "\n\tWhich password you wanna add? Enter the number comes before password\n" << std::endl;
-        int password_id;  //Password key
 
-        while (password_id != -1) {  //While user input is different than "-1"
+        //Password key
+        int password_id;
+
+        //While user input is different than "-1"
+        while (password_id != -1) {
             std::cout << "> ";
             std::cin >> password_id;
-            auto it = AddCategory::passwords.find(password_id);  //Returns an iterator pointing to the element
 
-            if (it->second.empty()) {  //If the value is empty it returns
+            //Returns an iterator pointing to the element
+            auto it = AddCategory::passwords.find(password_id);
+
+            //If the value is empty it returns
+            if (it->second.empty()) {
                 std::cout << "[-] You don't have any password with that key!" << std::endl;
             }
 
             else {
-                matched_passwords.emplace_back(it->second);  //If the password found add it to the vector
+                //If the password found add it to the vector
+                matched_passwords.emplace_back(it->second);
                 std::cout << "Password added!" << std::endl;
-                AddCategory::passwords.erase(it);  //After adding removing that password from map
+
+                //After adding removing that password from map
+                AddCategory::passwords.erase(it);
             }
         }
 
@@ -77,8 +92,10 @@ auto AddPassword::add_password() -> void {
         //From end of the previous value to the end of the matched_passwords vector
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
         std::cout << "Password(s) added!" << std::endl;
-        matched_passwords.clear();  //Emptying our vector after adding
-        print_categories_with_passwords();  //Printing our categories with passwords
+        //Emptying our vector after adding
+        matched_passwords.clear();
+        //Printing our categories with passwords
+        print_categories_with_passwords();
     }
 
     else std::cout << "[-] Category name does not exist! Try again" << std::endl;
@@ -99,13 +116,16 @@ auto AddPassword::print_categories_with_passwords() -> void {
     //Else print categories and passwords if they have any
     //Printing categories
     for (auto &category : AddCategory::categories) {
-        auto value = AddCategory::categories.find(category.first);  //If key has value, returns iterator
-        std::cout << "\n------------------------\n" << category.first << std::endl;  //Printing the keys of unordered_map
+        //If key has value, returns iterator
+        auto value = AddCategory::categories.find(category.first);
+        //Printing the keys of unordered_map
+        std::cout << "\n------------------------\n" << category.first << std::endl;
         //Printing the values (vector) of unordered_map
         for (auto const &matched : category.second) {
             std::cout << "\n" << "[*] " << matched;
         }
-        if (value->second.empty()) std::cout << "\nNo passwords found";  //If iterator is empty, then prints info
+        //If iterator is empty, then prints info
+        if (value->second.empty()) std::cout << "\nNo passwords found";
         std::cout << "\n------------------------" << std::endl;
     }
 }
@@ -118,9 +138,12 @@ auto AddPassword::create_password() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "                          Add your own password to the list\n" << std::endl;
 
-    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
-    std::default_random_engine engine(seed);  ////Seeded engine
-    std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+    //Seed
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
+    //Seeded engine
+    std::default_random_engine engine(seed);
+    //Generates value between 0 and 32767 for key
+    std::uniform_int_distribution<int> keys(0, INT16_MAX);
 
     int key = keys(engine);
     std::string user_entered_password;
@@ -189,7 +212,8 @@ auto AddPassword::create_password() -> void {
 
     std::cout << "Password added!" << std::endl;
 
-    AddCategory::passwords[key] = user_entered_password;  //Adding passwords to the map
+    //Adding passwords to the map
+    AddCategory::passwords[key] = user_entered_password;
 }
 
 /**
@@ -197,10 +221,13 @@ auto AddPassword::create_password() -> void {
  * @return void
  */
 auto AddPassword::create_password_with_url() -> void {
-    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
-    std::default_random_engine engine(seed);  ////Seeded engine
+    //Seed
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
+    //Seeded engine
+    std::default_random_engine engine(seed);
 
-    std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+    //Generates value between 0 and 32767 for key
+    std::uniform_int_distribution<int> keys(0, INT16_MAX);
     int key = keys(engine);
 
     std::string password_from_user;
@@ -240,12 +267,14 @@ auto AddPassword::create_password_with_url() -> void {
     std::string const COMBINED_CHARACTERS_OF_NUM_CAP_SPEC = NUMBERS + CAPITAL_CASE_LETTERS + SPECIAL_CASE_LETTERS;
     std::string const COMBINED_CHARACTERS_OF_LOW_CAP_NUM = NUMBERS + LOWER_CASE_LETTERS + CAPITAL_CASE_LETTERS;
 
+    //Conditions
     bool is_special = false;
     bool is_contain_both_cap = false;
     bool is_contain_all = false;
     bool loop = true;
 
-    int size = 0x0;  //Size of the password, looks cool in hexadecimal
+    //Size of the password, looks cool in hexadecimal
+    int size = 0x0;
     std::cout << "Please enter the size of the password: ";
     std::cin >> size;
 
@@ -347,7 +376,8 @@ auto AddPassword::create_password_with_url() -> void {
         }
     }
 
-    std::string password_as_string;  //Converting char password[] to std::string
+    //Converting char password[] to std::string
+    std::string password_as_string;
 
     //Adding elements to our std::string
     for (int i = 0; i < size; i++) {

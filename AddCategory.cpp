@@ -8,7 +8,7 @@
  */
 auto AddCategory::add_category() -> void {
     //Unordered map for storing categories and their passwords
-    std::string category_input;  //User input
+    std::string category_input;
     std::cout << "+-----------------------------------------------------------------------------------+" << std::endl;
     std::cout << "      Adds a new category to be used with creating new passwords\n"
                  "                      For stop adding type \"quit\"\n" << std::endl;

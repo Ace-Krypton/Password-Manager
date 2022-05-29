@@ -11,13 +11,16 @@ auto RemovePassword::remove_password_from_list() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "Removes selected password(s) from password list" << std::endl;
 
-    AddPassword::print_password();  //Prints our passwords
-    AddPassword::print_password_with_url();  //Prints our passwords with URL
+    //Prints our passwords
+    AddPassword::print_password();
+    //Prints our passwords with URL
+    AddPassword::print_password_with_url();
 
     bool loop = true;
     int user_input;
 
-    std::vector<int> removal;  //Removal list that contains keys that will be removed from lists
+    //Removal list that contains keys that will be removed from lists
+    std::vector<int> removal;
 
     while (loop) {
         std::cout << "\n> ";
@@ -100,12 +103,13 @@ auto RemovePassword::remove_password_from_category() -> void {
     std::string user_input_for_password;
     bool loop = true;
 
-    std::vector<std::string> removal;  //Removal list that contains values that will be removed from lists
+    //Removal list that contains values that will be removed from lists
+    std::vector<std::string> removal;
 
-    //Label (will be useful in next step)
     LOOP:
     while (loop) {
-        AddPassword::print_categories_with_passwords();  //Prints categories with passwords
+        //Prints categories with passwords
+        AddPassword::print_categories_with_passwords();
         std::cout << "\n> ";
         std::cin >> user_input;
 
@@ -139,6 +143,7 @@ auto RemovePassword::remove_password_from_category() -> void {
                                 std::cout << "Deleted!" << std::endl;
                                 goto LOOP;  //After deleting go to the loop
                             }
+                            else std::cout << "[-] You don't have this password" << std::endl;
                         }
                     }
                 }
