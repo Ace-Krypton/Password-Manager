@@ -69,6 +69,7 @@ auto main() -> int {
 
                 int user_input_for_edit_pass;
                 std::cout << "\n> ";
+                std::cin >> user_input_for_edit_pass;
 
                 switch (user_input_for_edit_pass) {
                     case 1:  //Edit password from Password List

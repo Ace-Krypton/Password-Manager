@@ -9,7 +9,7 @@
  */
 auto RemovePassword::remove_password_from_list() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
-    std::cout << "Removes selected password(s) from password list" << std::endl;
+    std::cout << "\t\t\tRemoves selected password(s) from password list" << std::endl;
 
     //Prints our passwords
     AddPassword::print_password();
@@ -97,7 +97,7 @@ auto RemovePassword::remove_password_from_list() -> void {
  */
 auto RemovePassword::remove_password_from_category() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
-    std::cout << "Removes selected password(s) from categories" << std::endl;
+    std::cout << "\t\t\t\tRemoves selected password(s) from categories" << std::endl;
 
     std::string user_input;
     std::string user_input_for_password;
