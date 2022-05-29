@@ -64,7 +64,32 @@ auto main() -> int {
                 }
 
             case 4:  //Edit a password
-                break;
+            while (true) {
+                EditPassword::edit_password_menu();
+
+                int user_input_for_edit_pass;
+                std::cout << "\n> ";
+
+                switch (user_input_for_edit_pass) {
+                    case 1:  //Edit password from Password List
+                        EditPassword::edit_password_from_password_list();
+                        break;
+
+                    case 2:  //Edit password from Categories List
+                        std::cout << "Will be here" << std::endl;
+                        break;
+
+                    case 3:  //Edit password from Passwords with URl List
+                        std::cout << "Will be there" << std::endl;
+                        break;
+
+                    case 0:  //Back
+                        goto MAINLOOP;
+
+                    default:
+                        std::cout << "[-] Invalid command, Please try again" << std::endl;
+                }
+            }
 
             case 5:  //Remove a password
             while (true) {

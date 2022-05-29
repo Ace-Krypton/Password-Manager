@@ -3,4 +3,4 @@ project(PasswordManager)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(PasswordManager main.cpp header.hpp PassSearch.cpp AddCategory.cpp AddPassword.cpp RemoveCategory.cpp RemovePassword.cpp)
+add_executable(PasswordManager main.cpp header.hpp SearchPassword.cpp AddCategory.cpp AddPassword.cpp RemoveCategory.cpp RemovePassword.cpp EditPassword.cpp)

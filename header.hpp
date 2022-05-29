@@ -43,3 +43,9 @@ public:
     static auto remove_password_from_category() -> void;
     static auto remove_password_menu() -> void;
 };
+
+class EditPassword {
+public:
+    static auto edit_password_menu() -> void;
+    static auto edit_password_from_password_list() -> void;
+};
