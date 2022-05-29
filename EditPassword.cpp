@@ -1,6 +1,15 @@
 #include <iostream>
+#include <algorithm>
 #include "header.hpp"
 
+/**
+ * @author Ramiz Abbasov
+ */
+
+/**
+ * Edits selected password(s) from password list
+ * @return void
+ */
 auto EditPassword::edit_password_from_password_list() -> void {
     std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
     std::cout << "\t\t\t\tEdits selected password(s) from password list" << std::endl;
@@ -16,7 +25,7 @@ auto EditPassword::edit_password_from_password_list() -> void {
     auto it = AddCategory::passwords.find(user_input);
 
     if (it != AddCategory::passwords.end()) {
-        std::cout << "\n[*] " << it->second << " selected" << std::endl;
+        std::cout << "\n[*] " << it->second << " selected!" << std::endl;
         std::cout << "\n\t\t\t\tEnter the edited password" << std::endl;
         std::cout << "\n> ";
         std::string new_edited_password;
@@ -28,7 +37,59 @@ auto EditPassword::edit_password_from_password_list() -> void {
 }
 
 /**
- * Menu for editing passwords
+ * Edits selected password(s) from category list
+ * @return void
+ */
+auto EditPassword::edit_password_from_category_list() -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
+    std::cout << "\t\t\t\tEdits selected password(s) from category list" << std::endl;
+
+    //Prints categories with passwords
+    AddPassword::print_categories_with_passwords();
+
+    std::string user_input;
+    std::string user_input_for_password;
+    std::string new_edited_password;
+
+    std::cout << "\t\t\t\tEnter the category name" << std::endl;
+    std::cout << "\n> ";
+    std::cin >> user_input;
+
+    if (AddCategory::categories.contains(user_input)) {
+        std::cout << "[*] " << user_input << " selected!" << std::endl;
+        for (auto &category : AddCategory::categories) {
+            if (category.first == user_input) {
+                //Printing the values(passwords)
+                for (auto const &password : category.second) {
+                    std::cout << "\n" << "[*] " << password;
+                }
+
+                while (true) {
+                    std::cout << "\n\t\t\t\tEnter the password you wanna edit" << std::endl;
+                    std::cout << "\n> ";
+                    std::cin >> user_input_for_password;
+
+                    if (std::count(category.second.begin(), category.second.end(), user_input_for_password)) {
+                        break;
+                    }
+                    else std::cout << "[-] You don't have any password like that" << std::endl;
+                }
+
+                std::cout << "\n[*] " << user_input_for_password << " selected!" << std::endl;
+
+                std::cout << "\t\t\t\tEnter the edited password" << std::endl;
+                std::cout << "\n> ";
+                std::cin >> new_edited_password;
+
+                std::replace(category.second.begin(), category.second.end(), user_input_for_password, new_edited_password);
+            }
+        }
+    }
+    else std::cout << "[-] You don't have any category named like that!" << std::endl;
+}
+
+/**
+ * Menu for editing password(s)
  * @return void
  */
 auto EditPassword::edit_password_menu() -> void {

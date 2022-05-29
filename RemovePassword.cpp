@@ -147,7 +147,7 @@ auto RemovePassword::remove_password_from_category() -> void {
                         }
                     }
                 }
-                else std::cout << "[-] You don't have any category with that password!" << std::endl;
+                else std::cout << "[-] You don't have any category name like that!" << std::endl;
             }
         }
     }

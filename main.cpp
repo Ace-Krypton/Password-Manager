@@ -77,7 +77,7 @@ auto main() -> int {
                         break;
 
                     case 2:  //Edit password from Categories List
-                        std::cout << "Will be here" << std::endl;
+                        EditPassword::edit_password_from_category_list();
                         break;
 
                     case 3:  //Edit password from Passwords with URl List

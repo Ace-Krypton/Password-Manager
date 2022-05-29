@@ -48,4 +48,5 @@ class EditPassword {
 public:
     static auto edit_password_menu() -> void;
     static auto edit_password_from_password_list() -> void;
+    static auto edit_password_from_category_list() -> void;
 };
