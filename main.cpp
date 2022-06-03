@@ -81,7 +81,7 @@ auto main() -> int {
                         break;
 
                     case 3:  //Edit password from Passwords with URl List
-                        std::cout << "Will be there" << std::endl;
+                        EditPassword::edit_password_from_url_list();
                         break;
 
                     case 0:  //Back

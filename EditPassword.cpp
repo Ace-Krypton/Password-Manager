@@ -89,6 +89,43 @@ auto EditPassword::edit_password_from_category_list() -> void {
 }
 
 /**
+ * Edits selected password(s) from URL list
+ * @return void
+ */
+auto EditPassword::edit_password_from_url_list() -> void {
+    std::cout << "+-----------------------------------------------------------------------------------+\n" << std::endl;
+    std::cout << "\t\t\t\tEdits selected password(s) from URL list" << std::endl;
+
+    AddPassword::print_password_with_url();
+
+    std::string new_edited_password;
+    std::string user_input;
+    int id;
+
+    std::cout << "\n\t\t\t\t\tEnter the ID" << std::endl;
+    std::cout << "\n> ";
+    std::cin >> id;
+
+    if (AddCategory::passwords_with_url.contains(id)) {
+        std::cout << "\t\t\t\tEnter the password you wanna change" << std::endl;
+        std::cout << "\n> ";
+        std::cin >> user_input;
+
+        for (auto &password_with_url : AddCategory::passwords_with_url) {
+            for (auto &url_map : password_with_url.second) {
+                if (url_map.second == user_input) {
+                    std::cout << "\n> ";
+                    std::cin >> new_edited_password;
+                    url_map.second = new_edited_password;
+                }
+                else std::cout << "[-] Password was not found" << std::endl;
+            }
+        }
+    }
+    else std::cout << "[-] Key is invalid" << std::endl;
+}
+
+/**
  * Menu for editing password(s)
  * @return void
  */
@@ -98,5 +135,4 @@ auto EditPassword::edit_password_menu() -> void {
     std::cout << "[2] Edit password(s) from Categories List" << std::endl;
     std::cout << "[3] Edit password(s) from Passwords with URl List\n" << std::endl;
     std::cout << "[0] Back" << std::endl;
-
 }
