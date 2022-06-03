@@ -7,7 +7,7 @@
 auto main_menu() -> void;
 class PassSearch {
 public:
-    static auto pass_search() -> void;
+    static auto search_pass() -> void;
 };
 
 class AddCategory {

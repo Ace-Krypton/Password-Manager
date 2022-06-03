@@ -277,7 +277,7 @@ auto AddPassword::create_password_with_url() -> void {
     bool is_contain_all = false;
     bool loop = true;
 
-    //Size of the password, looks cool in hexadecimal
+    //Size of the password (0), looks cool in hexadecimal
     int size = 0x0;
     std::cout << "Please enter the size of the password: ";
     std::cin >> size;
@@ -363,7 +363,7 @@ auto AddPassword::create_password_with_url() -> void {
 
     else if (is_contain_all) {
         password[0] = CAPITAL_CASE_LETTERS[capital(engine)];
-        password[1] = LOWER_CASE_LETTERS[lower(engine)];
+        password[1] = SPECIAL_CASE_LETTERS[special(engine)];
         password[2] = NUMBERS[number(engine)];
 
         for (int i = 3; i < size; i++) {

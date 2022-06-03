@@ -19,7 +19,7 @@ auto main() -> int {
 
         switch (user_input_int) {  //Main switch
             case 1:  //Search for passwords
-                PassSearch::pass_search();
+                PassSearch::search_pass();
                 break;
 
             case 2:  //Sort passwords
@@ -68,55 +68,55 @@ auto main() -> int {
                 }
 
             case 4:  //Edit a password
-            while (true) {
-                EditPassword::edit_password_menu();
+                while (true) {
+                    EditPassword::edit_password_menu();
 
-                int user_input_for_edit_pass;
-                std::cout << "\n> ";
-                std::cin >> user_input_for_edit_pass;
+                    int user_input_for_edit_pass;
+                    std::cout << "\n> ";
+                    std::cin >> user_input_for_edit_pass;
 
-                switch (user_input_for_edit_pass) {
-                    case 1:  //Edit password from Password List
-                        EditPassword::edit_password_from_password_list();
-                        break;
+                    switch (user_input_for_edit_pass) {
+                        case 1:  //Edit password from Password List
+                            EditPassword::edit_password_from_password_list();
+                            break;
 
-                    case 2:  //Edit password from Categories List
-                        EditPassword::edit_password_from_category_list();
-                        break;
+                        case 2:  //Edit password from Categories List
+                            EditPassword::edit_password_from_category_list();
+                            break;
 
-                    case 3:  //Edit password from Passwords with URl List
-                        EditPassword::edit_password_from_url_list();
-                        break;
+                        case 3:  //Edit password from Passwords with URl List
+                            EditPassword::edit_password_from_url_list();
+                            break;
 
-                    case 0:  //Back
-                        goto MAINLOOP;
+                        case 0:  //Back
+                            goto MAINLOOP;
 
-                    default:
-                        std::cout << "[-] Invalid command, Please try again" << std::endl;
+                        default:
+                            std::cout << "[-] Invalid command, Please try again" << std::endl;
+                    }
                 }
-            }
 
             case 5:  //Remove a password
-            while (true) {
-                RemovePassword::remove_password_menu();
-                int user_input_for_remove_pass;
-                std::cout << "\n> ";
-                std::cin >> user_input_for_remove_pass;
+                while (true) {
+                    RemovePassword::remove_password_menu();
+                    int user_input_for_remove_pass;
+                    std::cout << "\n> ";
+                    std::cin >> user_input_for_remove_pass;
 
-                switch (user_input_for_remove_pass) {
-                    case 1:  //Remove password(s) from password
-                        RemovePassword::remove_password_from_list();
+                    switch (user_input_for_remove_pass) {
+                        case 1:  //Remove password(s) from password
+                            RemovePassword::remove_password_from_list();
 
-                    case 2:  //Remove password(s) from categories
-                        RemovePassword::remove_password_from_category();
+                        case 2:  //Remove password(s) from categories
+                            RemovePassword::remove_password_from_category();
 
-                    case 0:  //Back
-                        goto MAINLOOP;
+                        case 0:  //Back
+                            goto MAINLOOP;
 
-                    default:
-                        std::cout << "[-] Invalid command, Please try again" << std::endl;
+                        default:
+                            std::cout << "[-] Invalid command, Please try again" << std::endl;
+                    }
                 }
-            }
 
             case 6:  //Add a category
                 AddCategory::add_category();
