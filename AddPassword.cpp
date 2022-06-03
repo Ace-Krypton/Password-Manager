@@ -84,7 +84,7 @@ auto AddPassword::add_password() -> void {
             else {
                 //If the password found add it to the vector
                 matched_passwords.emplace_back(it->second);
-                std::cout << "Password added!" << std::endl;
+                std::cout << "[*] Password added!" << std::endl;
 
                 //After adding removing that password from map
                 AddCategory::passwords.erase(it);
@@ -95,7 +95,7 @@ auto AddPassword::add_password() -> void {
         auto &v = AddCategory::categories[category_name];
         //From end of the previous value to the end of the matched_passwords vector
         v.insert(v.end(), std::begin(matched_passwords), std::end(matched_passwords));
-        std::cout << "Password(s) added!" << std::endl;
+        std::cout << "[*] Password(s) added!" << std::endl;
         //Emptying our vector after adding
         matched_passwords.clear();
         //Printing our categories with passwords
@@ -214,7 +214,7 @@ auto AddPassword::create_password() -> void {
         }
     }
 
-    std::cout << "Password added!" << std::endl;
+    std::cout << "[*] Password added!" << std::endl;
 
     //Adding passwords to the map
     AddCategory::passwords[key] = user_entered_password;
@@ -245,7 +245,7 @@ auto AddPassword::create_password_with_url() -> void {
     AddCategory::passwords_with_url_map[url_from_user] = password_from_user;
     auto &v = AddCategory::passwords_with_url[key];
     v.insert(std::begin(AddCategory::passwords_with_url_map), std::end(AddCategory::passwords_with_url_map));
-    std::cout << "Password added successfully!" << std::endl;
+    std::cout << "[*] Password added successfully!" << std::endl;
     AddCategory::passwords_with_url_map.clear();
 }
 
@@ -397,7 +397,7 @@ auto AddPassword::create_password_with_url() -> void {
     //this will add generated password to the vector
     if (user_input != "N" || user_input != "n") {
         AddCategory::passwords[key] = password_as_string;
-        std::cout << "Password added successfully!" << std::endl;
+        std::cout << "[*] Password added successfully!" << std::endl;
     }
 }
 

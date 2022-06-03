@@ -25,14 +25,16 @@ auto PassSearch::search_pass() -> void {
 
     for (auto const &password : AddCategory::passwords) {
         if (password.second == user_input) {
-            std::cout << "[*] It is present in password list\n" << std::endl;
+            std::cout << "[*] It is present in password list" << std::endl;
+            std::cout << "[*] " << password.first << ": " << password.second << '\n' << std::endl;
         }
 
         else {
             for (auto const &passwords_w_url : AddCategory::passwords_with_url) {
                 for (auto const &pass : passwords_w_url.second) {
                     if (pass.second == user_input) {
-                        std::cout << "[*] It is present in password URL list\n" << std::endl;
+                        std::cout << "[*] It is present in password URL list" << std::endl;
+                        std::cout << "[*] " << pass.first << ": " << pass.second << '\n' << std::endl;
                     }
 
                     else {
@@ -40,6 +42,7 @@ auto PassSearch::search_pass() -> void {
                             for (auto const &vec : category.second) {
                                 if (vec == user_input) {
                                     std::cout << "[*] It is present in category list\n" << std::endl;
+                                    std::cout << "[*] " << vec << '\n' << std::endl;
                                 }
                             }
                         }
