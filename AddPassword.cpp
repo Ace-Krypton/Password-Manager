@@ -432,7 +432,7 @@ auto AddPassword::print_password_with_url() -> void {
     for (const auto &password_with_url : AddCategory::passwords_with_url) {
         std::cout << "[*] " << password_with_url.first << " : ";
         for (const auto &url_map : password_with_url.second) {
-            std::cout << "URL: " << url_map.first << " : " << "Password:" << url_map.second << std::endl;
+            std::cout << "URL: " << url_map.first << " : " << "Password: " << url_map.second << std::endl;
         }
     }
 }
