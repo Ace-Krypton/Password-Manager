@@ -2,6 +2,10 @@
 #include <string>
 #include "header.hpp"
 
+/**
+ * @author Ramiz Abbasov
+ */
+
 auto main() -> int {
     std::string user_input_str;
     int user_input_int;

@@ -3,6 +3,10 @@
 #include "header.hpp"
 
 /**
+ * @author Ramiz Abbasov
+ */
+
+/**
  * Adds a category
  * @return void
  */

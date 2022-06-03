@@ -2,6 +2,10 @@
 #include "header.hpp"
 
 /**
+ * @author Ramiz Abbasov
+ */
+
+/**
  * Removes category
  * @return void
  */

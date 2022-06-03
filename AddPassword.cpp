@@ -6,6 +6,10 @@
 #include "header.hpp"
 
 /**
+ * @author Ramiz Abbasov
+ */
+
+/**
  * TODO 1. Randomizer  [X]
  *      2. Options for generation  [X]
  *      3. Create Password  [X]

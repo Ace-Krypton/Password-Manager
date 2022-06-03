@@ -4,6 +4,10 @@
 #include "header.hpp"
 
 /**
+ * @author Ramiz Abbasov
+ */
+
+/**
  * Removes password from password list or URL
  * @return void
  */
