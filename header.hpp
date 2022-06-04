@@ -6,6 +6,11 @@
 
 auto main_menu() -> void;
 
+class Encryptor {
+public:
+    static auto encryption_generator() -> void;
+};
+
 class SortPassword {
 public:
     static auto sort_password() -> void;

@@ -69,7 +69,6 @@ auto main() -> int {
                 }
 
             case 4:  //Edit a password
-                EDIT:
                 while (true) {
                     EditPassword::edit_password_menu();
 
