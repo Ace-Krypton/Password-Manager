@@ -16,9 +16,7 @@
 
 auto Encryptor::encryption_generator() -> void {
     auto path = std::string("/home/draco/mySimpleFile");  //Absolute path
-    //auto write = std::fstream(path, std::ios::out | std::ios::trunc);
-
-    /*auto write = std::fstream(path, std::ios::out | std::ios::trunc);
+    auto write = std::fstream(path, std::ios::out | std::ios::trunc);
 
     //Writing Password List
     if (!(AddCategory::passwords.empty())) {
@@ -53,7 +51,7 @@ auto Encryptor::encryption_generator() -> void {
             if (value->second.empty()) write << "\nNo passwords found";
             write << "\n------------------------" << std::endl;
         }
-    }*/  //Writing to file
+    }
 
     std::ifstream input_file(path);
     char byte = 0;
@@ -74,18 +72,18 @@ auto Encryptor::encryption_generator() -> void {
         encryption[comb] = key;
     }
 
-//    for (auto const &it : encryption) {
-//        std::cout << it.first << " : " << it.second << std::endl;
-//    }
-
+    auto encrypt = std::fstream(path, std::ios::out | std::ios::app);
     while (input_file.get(byte)) {
         if (encryption.contains(byte)) {
             for (auto const &it : encryption) {
                 if (it.first == byte) {
-                    std::cout << it.second;
+                    encrypt << it.second;
                 }
             }
         }
+        std::ofstream ofs;
+        ofs.open(path, std::ofstream::out | std::ofstream::trunc);
+        ofs.close();
     }
     std::cout << std::endl;
 }
