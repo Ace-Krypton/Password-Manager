@@ -127,6 +127,10 @@ auto main() -> int {
                 RemoveCategory::remove_category();
                 break;
 
+            case 8:  //Encryptor testing
+                Encryptor::encryption_generator();
+                break;
+
             case 0:  //Exit
                 std::cout << "Exiting..." << std::endl;
                 main_loop = false;
