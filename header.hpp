@@ -6,6 +6,11 @@
 
 auto main_menu() -> void;
 
+class SortPassword {
+public:
+    static auto sort_password() -> void;
+};
+
 class PassSearch {
 public:
     static auto search_pass() -> void;

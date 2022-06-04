@@ -23,6 +23,7 @@ auto main() -> int {
                 break;
 
             case 2:  //Sort passwords
+                SortPassword::sort_password();
                 break;
 
             case 3:  //Add a password
