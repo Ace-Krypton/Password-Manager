@@ -6,8 +6,14 @@
 
 auto main_menu() -> void;
 
+class Decryptor {
+public:
+    static auto decryptor() -> void;
+};
+
 class Encryptor {
 public:
+    inline static std::map<char, int> encryption;
     static auto encryption_generator() -> void;
 };
 

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <fstream>
 #include <random>
 #include <chrono>
@@ -11,9 +10,9 @@
  */
 
 /**
- * TODO 1. Take user choices for ::app or ::trunc or whatever
+ * Encryptor
+ * @return void
  */
-
 auto Encryptor::encryption_generator() -> void {
     auto path = std::string("/home/draco/mySimpleFile");  //Absolute path
     auto write = std::fstream(path, std::ios::out | std::ios::trunc);
@@ -55,12 +54,11 @@ auto Encryptor::encryption_generator() -> void {
 
     std::ifstream input_file(path);
     char byte = 0;
+
     if (!input_file.is_open()) {
-        std::cerr << "[-] Could not open the file - '"
-             << path << "'" << std::endl;
+        std::cerr << "[-] Could not open the file - '" << path << "'" << std::endl;
     }
 
-    std::map<char, int> encryption;
     std::string combinations = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+=[]{};:'\",./?,<~>`|\\1234567890";
     unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();  //Seed
     std::default_random_engine engine(seed);  //Seeded engine
@@ -69,13 +67,13 @@ auto Encryptor::encryption_generator() -> void {
     for (auto &comb : combinations) {
         std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
         key = keys(engine);
-        encryption[comb] = key;
+        Encryptor::encryption[comb] = key;
     }
 
     auto encrypt = std::fstream(path, std::ios::out | std::ios::app);
     while (input_file.get(byte)) {
-        if (encryption.contains(byte)) {
-            for (auto const &it : encryption) {
+        if (Encryptor::encryption.contains(byte)) {
+            for (auto const &it : Encryptor::encryption) {
                 if (it.first == byte) {
                     encrypt << it.second;
                 }
