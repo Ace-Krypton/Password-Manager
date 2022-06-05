@@ -2,16 +2,31 @@
 #include <fstream>
 #include "header.hpp"
 
+// Utility function to print a vector
+template<typename T>
+auto Decryptor::print(std::vector<T> const &v) -> void {
+    for ([[maybe_unused]] auto &i: v) {
+        std::cout << i;
+    }
+    std::cout << std::endl;
+}
+
 auto Decryptor::decryptor() -> void {
-    auto path = std::string("/home/draco/mySimpleFile");  //Absolute path
+    //Absolute path (I will change it to the Relative path after I finish with testing)
+    auto path = std::string("/home/draco/mySimpleFile");
+    //Reading char by char
     char byte = 0;
+    //Read stream
     auto read = std::fstream(path);
+    //Will store chars that we read from file
     std::vector<char> numbers;
 
+    //Reading and pushing them to the vector
     while (read.get(byte)) {
         numbers.emplace_back(byte);
     }
 
+    //Printing the char vector
     for (auto const &it : numbers) {
         std::cout << it;
     }
@@ -50,19 +65,5 @@ auto Decryptor::decryptor() -> void {
     // print the sub-vectors
     for (int i = 0; i < size; i++) {
         print(vec[i]);
-        Decryptor::decrypted.emplace_back(i);
     }
-    
-    for (auto const &it : Decryptor::decrypted) {
-        std::cout << it << std::endl;
-    }
-}
-
-// Utility function to print a vector
-template<typename T>
-auto Decryptor::print(std::vector<T> const &v) -> void  {
-    for ([[maybe_unused]] auto &i: v) {
-        std::cout << i;
-    }
-    std::cout << std::endl;
 }
