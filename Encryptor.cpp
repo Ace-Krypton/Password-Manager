@@ -52,10 +52,10 @@ auto Encryptor::encryption_generator() -> void {
         }
     }
 
-    std::ifstream input_file(path);
+    std::ifstream read(path);
     char byte = 0;
 
-    if (!input_file.is_open()) {
+    if (!read.is_open()) {
         std::cerr << "[-] Could not open the file - '" << path << "'" << std::endl;
     }
 
@@ -65,13 +65,14 @@ auto Encryptor::encryption_generator() -> void {
     int key;
 
     for (auto &comb : combinations) {
-        std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+        //std::uniform_int_distribution<int> keys(0, INT16_MAX);  //Generates value between 0 and 32767 for key
+        std::uniform_int_distribution<int> keys(100000, 999999);  //Generates value between 0 and 32767 for key
         key = keys(engine);
         Encryptor::encryption[comb] = key;
     }
 
     auto encrypt = std::fstream(path, std::ios::out | std::ios::app);
-    while (input_file.get(byte)) {
+    while (read.get(byte)) {
         if (Encryptor::encryption.contains(byte)) {
             for (auto const &it : Encryptor::encryption) {
                 if (it.first == byte) {

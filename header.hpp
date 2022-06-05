@@ -9,11 +9,14 @@ auto main_menu() -> void;
 class Decryptor {
 public:
     static auto decryptor() -> void;
+    template<typename T>
+    static auto print(std::vector<T> const &v) -> void;
+    inline static std::vector<int> decrypted {};
 };
 
 class Encryptor {
 public:
-    inline static std::map<char, int> encryption;
+    inline static std::map<char, int> encryption {};
     static auto encryption_generator() -> void;
 };
 

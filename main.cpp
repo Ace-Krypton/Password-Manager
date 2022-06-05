@@ -131,6 +131,10 @@ auto main() -> int {
                 Encryptor::encryption_generator();
                 break;
 
+            case 9:  //Decryptor testing
+                Decryptor::decryptor();
+                break;
+
             case 0:  //Exit
                 std::cout << "Exiting..." << std::endl;
                 main_loop = false;
