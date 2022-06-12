@@ -8,24 +8,25 @@ auto main_menu() -> void;
 
 class Decryptor {
 public:
+    static inline std::vector<int> result = {};
     static auto decryptor() -> void;
     template<typename T>
-    static auto print(std::vector<T> const &v) -> void;
+    static auto print([[maybe_unused]] std::vector<T> &v) -> std::vector<int>;
     inline static std::vector<int> decrypted {};
 };
 
-class Encryptor {
+struct Encryptor {
 public:
     inline static std::map<char, int> encryption {};
     static auto encryption_generator() -> void;
 };
 
-class SortPassword {
+struct SortPassword {
 public:
     static auto sort_password() -> void;
 };
 
-class PassSearch {
+struct PassSearch {
 public:
     static auto search_pass() -> void;
 };
@@ -52,7 +53,7 @@ public:
     static auto generate_password_menu() -> void;
 };
 
-class RemoveCategory {
+struct RemoveCategory {
 public:
     static auto remove_category() -> void;
 };

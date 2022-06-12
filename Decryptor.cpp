@@ -1,14 +1,17 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "header.hpp"
 
 // Utility function to print a vector
 template<typename T>
-auto Decryptor::print(std::vector<T> const &v) -> void {
+auto Decryptor::print([[maybe_unused]] std::vector<T> &v) -> std::vector<int> {
     for ([[maybe_unused]] auto &i: v) {
-        std::cout << i;
+        //std::cout << i;
+        result.template emplace_back(i - '0');
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
+    return result;
 }
 
 auto Decryptor::decryptor() -> void {
@@ -62,8 +65,39 @@ auto Decryptor::decryptor() -> void {
         std::copy(start_itr, end_itr, vec[k].begin());
     }
 
+    std::vector<int> remake[size];
+
     // print the sub-vectors
     for (int i = 0; i < size; i++) {
-        print(vec[i]);
+        remake[i] = print(vec[i]);
     }
+
+    std::vector<int> new_remake {};
+    int temp;
+    auto encrypt = std::fstream(path, std::ios::out | std::ios::app);
+    int count = 0;
+    for (auto &it : remake) {
+        for (auto const &it2 : it) {
+            count++;
+            temp = it2;
+            //std::cout << it2;
+            if (count % 6 == 0) {
+                temp = 0;
+                std::cout << '\n';
+                new_remake.emplace_back(temp);
+                for (auto const &it3 : Encryptor::encryption) {
+                    //If the char equals to the read data then we write the value(random int) of our key(char)
+                    if (it3.second == it2) {
+                        encrypt << it3.first;
+                    }
+                }
+            }
+        }
+    }
+
+    for (auto const &it : new_remake) {
+        std::cout << it << std::endl;
+    }
+
+    std::cout << std::endl;
 }
