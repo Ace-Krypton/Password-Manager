@@ -6,9 +6,14 @@
 
 auto main_menu() -> void;
 
+class Documentation {
+public:
+    static auto guide() -> void;
+};
+
 class Decryptor {
 public:
-    static inline std::vector<int> result = {};
+    inline static std::vector<int> result = {};
     static auto decryptor() -> void;
     template<typename T>
     static auto print([[maybe_unused]] std::vector<T> &v) -> std::vector<int>;

@@ -9,10 +9,6 @@
 */
 
 /**
- * TODO 1. Ask: could we use multimap to sort?
- */
-
-/**
  * Returns list of all passwords, sorted
  * @return void
  */

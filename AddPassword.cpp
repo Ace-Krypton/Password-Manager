@@ -64,6 +64,7 @@ auto AddPassword::add_password() -> void {
         }
 
         std::cout << "\n\tWhich password you wanna add? Enter the number comes before password\n" << std::endl;
+        std::cout << "Use \"-1\" to exit from the loop" << std::endl;
 
         //Password key
         int password_id;
@@ -155,47 +156,47 @@ auto AddPassword::create_password() -> void {
     std::cin >> user_entered_password;
 
     //Password strength
-    bool hasUpper = false;
-    bool hasLower = false;
-    bool hasDigit = false;
-    bool hasSpecial = false;
+    bool has_upper = false;
+    bool has_lower = false;
+    bool has_digit = false;
+    bool has_special = false;
 
     //Checking the length of the password
     while (user_entered_password.length() < 4) {
         std::cout << "[-] Your password must be the minimum length of 4" << std::endl;
-        std::cout << "Please enter the password:";
+        std::cout << "Please enter the password: ";
         std::cin >> user_entered_password;
     }
 
     //Checking password strength
     for (char i : user_entered_password) {
         if (std::islower(i)) {  //Contains lower case
-            hasLower = true;
+            has_lower = true;
         }
 
         if (std::isupper(i)) {  //Contains upper case
-            hasUpper = true;
+            has_upper = true;
         }
 
         if (std::isdigit(i)) { //Contains digits
-            hasDigit = true;
+            has_digit = true;
         }
 
         if (!std::isalpha(i) && !std::isdigit(i)) {  //Contains special characters
-            hasSpecial = true;
+            has_special = true;
         }
     }
 
     //Processing the password strength
-    if(hasLower && hasUpper && hasDigit && hasSpecial) {
+    if(has_lower && has_upper && has_digit && has_special) {
         std::cout << "Password Strength: Strong " << std::endl;
     }
 
-    else if(hasLower && hasUpper && hasDigit) {
+    else if(has_lower && has_upper && has_digit) {
         std::cout << "Password Strength: Good " << std::endl;
     }
 
-    else if (hasLower && hasDigit) {
+    else if (has_lower && has_digit) {
         std::cout << "Password Strength: Medium" << std::endl;
     }
 
@@ -214,10 +215,9 @@ auto AddPassword::create_password() -> void {
         }
     }
 
-    std::cout << "[*] Password added!" << std::endl;
-
     //Adding passwords to the map
     AddCategory::passwords[key] = user_entered_password;
+    std::cout << "[*] Password added!" << std::endl;
 }
 
 /**

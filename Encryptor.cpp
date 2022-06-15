@@ -15,7 +15,9 @@
  */
 auto Encryptor::encryption_generator() -> void {
     //Absolute path (I will change it to the Relative path after I finish with testing)
-    auto path = std::string("/home/draco/mySimpleFile");
+    std::cout << "Enter the path for the file: ";
+    std::string path;
+    std::cin >> path;
     auto write = std::fstream(path, std::ios::out | std::ios::trunc);
 
     //Writing Password List
@@ -25,6 +27,10 @@ auto Encryptor::encryption_generator() -> void {
             write << "[*] " << pass.first << " : " << pass.second << std::endl;
         }
         write << "\n";
+    }
+
+    else {
+        std::cout << "[-] Password List is empty" << std::endl;
     }
 
     //Writing URL List
@@ -39,6 +45,10 @@ auto Encryptor::encryption_generator() -> void {
         write << '\n';
     }
 
+    else {
+        std::cout << "[-] URL List is empty" << std::endl;
+    }
+
     //Writing Category List
     if (!(AddCategory::categories.empty())) {
         write << "\t\t\t\tCategory List" << std::endl;
@@ -51,6 +61,11 @@ auto Encryptor::encryption_generator() -> void {
             if (value->second.empty()) write << "\nNo passwords found";
             write << "\n------------------------" << std::endl;
         }
+    }
+
+    else {
+        std::cout << "[-] Category List is empty\n" << std::endl;
+        return;
     }
 
     //Read Stream
@@ -96,5 +111,6 @@ auto Encryptor::encryption_generator() -> void {
         ofs.open(path, std::ofstream::out | std::ofstream::trunc);
         ofs.close();
     }
-    std::cout << std::endl;
+
+    std::cout << "[*] File encrypted successfully\n" << std::endl;
 }

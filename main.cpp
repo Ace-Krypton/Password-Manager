@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "header.hpp"
 
 /**
@@ -7,7 +6,6 @@
  */
 
 auto main() -> int {
-    std::string user_input_str;
     int user_input_int;
     bool main_loop = true;
 
@@ -26,7 +24,7 @@ auto main() -> int {
                 SortPassword::sort_password();
                 break;
 
-            case 3:  //Add a password
+            case 3:  //Add/Print passwords
                 while (true) {
                     AddPassword::add_password_menu();
 
@@ -135,16 +133,24 @@ auto main() -> int {
                 Decryptor::decryptor();
                 break;
 
-            case 0:  //Exit
+            case 10:  //Guide
+                Documentation::guide();
+                break;
+
+            case 0:  {  //Exit
+                std::cout << "Have you wrote the changes to the file (encryption) \"Yes/No\": ";
+                std::string user_confirm;
+                std::cin >> user_confirm;
+                if (user_confirm == "No" || user_confirm =="no") goto MAINLOOP;
                 std::cout << "Exiting..." << std::endl;
                 main_loop = false;
                 break;
+            }
 
             default:
                 std::cout << "[-] Invalid command, Please try again" << std::endl;
         }
     }
-
     return 0;
 }
 
@@ -153,12 +159,15 @@ auto main() -> int {
  * @return void
  */
 auto main_menu() -> void {
-    std::cout << "[1] Search for passwords" << std::endl;
+    std::cout << "[1] Search for password(s)" << std::endl;
     std::cout << "[2] Sort passwords" << std::endl;
-    std::cout << "[3] Add a password" << std::endl;
-    std::cout << "[4] Edit a password" << std::endl;
-    std::cout << "[5] Remove a password" << std::endl;
-    std::cout << "[6] Add a category" << std::endl;
-    std::cout << "[7] Remove a category\n" << std::endl;
+    std::cout << "[3] Add/Print password(s)" << std::endl;
+    std::cout << "[4] Edit password(s)" << std::endl;
+    std::cout << "[5] Remove password(s)" << std::endl;
+    std::cout << "[6] Add category(s)" << std::endl;
+    std::cout << "[7] Remove category(s)" << std::endl;
+    std::cout << "[8] Encrypt the file" << std::endl;
+    std::cout << "[9] Decrypt the file\n" << std::endl;
+    std::cout << "[10] Tutorial" << std::endl;
     std::cout << "[0] Exit" << std::endl;
 }
